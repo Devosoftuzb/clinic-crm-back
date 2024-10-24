@@ -6,6 +6,7 @@ import { ClientModule } from './client/client.module';
 import { Client } from './client/models/client.model';
 import { DirectionsModule } from './directions/directions.module';
 import { Direction } from './directions/models/direction.model';
+import { DirectionTypesModule } from './direction_types/direction_types.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Direction } from './directions/models/direction.model';
     JwtModule,
     ClientModule,
     DirectionsModule,
+    DirectionTypesModule,
   ],
   controllers: [],
   providers: [],

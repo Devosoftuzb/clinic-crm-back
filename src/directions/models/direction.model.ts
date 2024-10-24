@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { DirectionType } from 'src/direction_types/models/direction_type.model';
 
 interface DirectionAttr {
   name: string;
@@ -18,4 +19,10 @@ export class Direction extends Model<Direction, DirectionAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => DirectionType, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  direction_types: DirectionType[];
 }
