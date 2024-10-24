@@ -7,6 +7,7 @@ import { Client } from './client/models/client.model';
 import { DirectionsModule } from './directions/directions.module';
 import { Direction } from './directions/models/direction.model';
 import { DirectionTypesModule } from './direction_types/direction_types.module';
+import { DirectionType } from './direction_types/models/direction_type.model';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DirectionTypesModule } from './direction_types/direction_types.module';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASS),
       database: process.env.POSTGRES_DB,
-      models: [Client, Direction],
+      models: [Client, Direction, DirectionType],
       autoLoadModels: true,
       logging: false,
     }),

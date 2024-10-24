@@ -15,7 +15,7 @@ import { UpdateDirectionDto } from './dto/update-direction.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Direction')
-@Controller('directions')
+@Controller('direction')
 export class DirectionsController {
   constructor(private readonly directionsService: DirectionsService) {}
 
