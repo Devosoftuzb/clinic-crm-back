@@ -1,14 +1,7 @@
-import {
-  Controller,
-  Post,
-  Res,
-  HttpCode,
-  HttpStatus,
-  Body,
-} from '@nestjs/common';
+import { Controller, Post, HttpCode, HttpStatus, Body } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
-import { Response } from 'express';
 import { LoginDto } from './dto/login.dto';
+import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CookieGetter } from 'src/common/decorators/cookieGetter.decorator';
 
@@ -19,35 +12,26 @@ export class AuthController {
 
   @ApiOperation({ summary: 'User login' })
   @Post('login')
-  async login(
-    @Body() loginDto: LoginDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const { login, password } = loginDto;
-    return this.authService.login(login, password, res);
+  @HttpCode(HttpStatus.OK)
+  async login(@Body() loginDto: LoginDto) {
+    return this.authService.login(loginDto);
   }
 
   @ApiOperation({ summary: 'User logout' })
-  @HttpCode(HttpStatus.OK)
   @Post('logout')
+  @HttpCode(HttpStatus.OK)
   async logout(
     @CookieGetter('refresh_token') refreshToken: string,
     @Body('userId') userId: string,
-    @Res({ passthrough: true }) res: Response,
   ) {
-    await this.authService.logout(refreshToken, userId, res);
+    await this.authService.logout(refreshToken, userId);
     return { message: 'Successfully logged out.' };
   }
 
   @ApiOperation({ summary: 'User refresh token generate' })
   @Post('refresh')
-  async refreshToken(@Body() body: any, @Res() res: Response) {
-    const { userId, refreshToken } = body;
-    const tokens = await this.authService.refreshToken(
-      userId,
-      refreshToken,
-      res,
-    );
-    return { access_token: tokens.access_token };
+  @HttpCode(HttpStatus.OK)
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refreshToken(refreshTokenDto);
   }
 }

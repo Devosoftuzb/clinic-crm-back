@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/models/user.model';
 import { ClinicModule } from './clinic/clinic.module';
 import { Clinic } from './clinic/models/clinic.model';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -28,11 +29,12 @@ import { Clinic } from './clinic/models/clinic.model';
       logging: false,
     }),
     JwtModule,
+    AuthModule,
+    UserModule,
+    ClinicModule,
     ClientModule,
     DirectionsModule,
     DirectionTypesModule,
-    UserModule,
-    ClinicModule,
   ],
   controllers: [],
   providers: [],
