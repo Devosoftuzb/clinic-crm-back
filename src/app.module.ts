@@ -11,6 +11,7 @@ import { DirectionType } from './direction_types/models/direction_type.model';
 import { UserModule } from './user/user.module';
 import { User } from './user/models/user.model';
 import { ClinicModule } from './clinic/clinic.module';
+import { Clinic } from './clinic/models/clinic.model';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { ClinicModule } from './clinic/clinic.module';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASS),
       database: process.env.POSTGRES_DB,
-      models: [Client, Direction, DirectionType, User],
+      models: [Client, Direction, DirectionType, User, Clinic],
       autoLoadModels: true,
       logging: false,
     }),
