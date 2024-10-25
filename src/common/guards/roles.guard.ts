@@ -49,7 +49,7 @@ export class RolesGuard implements CanActivate {
     let user: any;
     try {
       user = this.jwtService.verify(token, {
-        secret: process.env.REFRESH_TOKEN_KEY,
+        secret: process.env.ACCESS_TOKEN_KEY,
       });
     } catch (error) {
       throw new UnauthorizedException({
