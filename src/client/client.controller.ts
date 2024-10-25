@@ -26,51 +26,58 @@ export class ClientController {
   // @ApiBearerAuth('access-token')
   // @Roles('administrator')
   // @UseGuards(RolesGuard, JwtAuthGuard)
-  @Post()
-  create(@Body() createClientDto: CreateClientDto) {
-    return this.clientService.create(createClientDto);
+  @Post(':clinic_id')
+  create(
+    @Param('clinic_id') clinic_id: string,
+    @Body() createClientDto: CreateClientDto,
+  ) {
+    return this.clientService.create(clinic_id, createClientDto);
   }
 
   @ApiOperation({ summary: 'View all clients' })
   // @ApiBearerAuth('access-token')
   // @Roles('administrator')
   // @UseGuards(RolesGuard, JwtAuthGuard)
-  @Get()
-  findAll() {
-    return this.clientService.findAll();
+  @Get(':clinic_id')
+  findAll(@Param('clinic_id') clinic_id: string) {
+    return this.clientService.findAll(clinic_id);
   }
 
   @ApiOperation({ summary: 'Paginate clients' })
   // @ApiBearerAuth('access-token')
   // @Roles('administrator')
   // @UseGuards(RolesGuard, JwtAuthGuard)
-  @Get('page')
-  paginate(@Query('page') page: number) {
-    return this.clientService.paginate(page);
+  @Get(':clinic_id/page')
+  paginate(@Param('clinic_id') clinic_id: string, @Query('page') page: number) {
+    return this.clientService.paginate(clinic_id, page);
   }
 
   @ApiOperation({ summary: 'View a client by ID' })
   // @ApiBearerAuth('access-token')
   // @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.clientService.findOne(id);
+  @Get(':clinic_id/:id')
+  findOne(@Param('clinic_id') clinic_id: string, @Param('id') id: string) {
+    return this.clientService.findOne(clinic_id, id);
   }
 
   @ApiOperation({ summary: 'Update a client by ID' })
   // @ApiBearerAuth('access-token')
   // @UseGuards(JwtAuthGuard)
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientService.update(id, updateClientDto);
+  @Put(':clinic_id/:id')
+  update(
+    @Param('clinic_id') clinic_id: string,
+    @Param('id') id: string,
+    @Body() updateClientDto: UpdateClientDto,
+  ) {
+    return this.clientService.update(clinic_id, id, updateClientDto);
   }
 
   @ApiOperation({ summary: 'Delete a client by ID' })
   // @ApiBearerAuth('access-token')
   // @Roles('administrator')
   // @UseGuards(RolesGuard, JwtAuthGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientService.remove(id);
+  @Delete(':clinic_id/:id')
+  remove(@Param('clinic_id') clinic_id: string, @Param('id') id: string) {
+    return this.clientService.remove(clinic_id, id);
   }
 }

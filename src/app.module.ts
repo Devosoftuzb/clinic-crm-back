@@ -10,6 +10,7 @@ import { DirectionTypesModule } from './direction_types/direction_types.module';
 import { DirectionType } from './direction_types/models/direction_type.model';
 import { UserModule } from './user/user.module';
 import { User } from './user/models/user.model';
+import { ClinicModule } from './clinic/clinic.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { User } from './user/models/user.model';
     DirectionsModule,
     DirectionTypesModule,
     UserModule,
+    ClinicModule,
   ],
   controllers: [],
   providers: [],

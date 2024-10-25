@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/sequelize';
@@ -31,7 +35,9 @@ export class UserService {
         };
       }
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to initialize Super Admin. Please try again later',
+      );
     }
   }
 
@@ -47,7 +53,9 @@ export class UserService {
         user,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to create user. Please try again later',
+      );
     }
   }
 
@@ -59,7 +67,9 @@ export class UserService {
         users,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve users. Please try again later',
+      );
     }
   }
 
@@ -84,7 +94,9 @@ export class UserService {
         },
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve users. Please try again later',
+      );
     }
   }
 
@@ -92,14 +104,16 @@ export class UserService {
     try {
       const user = await this.repo.findByPk(id, { include: { all: true } });
       if (!user) {
-        throw new BadRequestException(`User with id ${id} not found`);
+        throw new NotFoundException(`User with id ${id} not found`);
       }
       return {
         message: 'User retrieved successfully',
         user,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve user. Please try again later',
+      );
     }
   }
 
@@ -112,11 +126,13 @@ export class UserService {
         user: user.user,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to update user. Please try again later',
+      );
     }
   }
 
-  async delete(id: string) {
+  async remove(id: string) {
     try {
       const user = await this.findOne(id);
       await user.user.destroy();
@@ -124,7 +140,9 @@ export class UserService {
         message: 'User deleted successfully',
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to delete user. Please try again later',
+      );
     }
   }
 }

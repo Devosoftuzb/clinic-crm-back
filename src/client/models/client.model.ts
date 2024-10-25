@@ -1,6 +1,8 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { Clinic } from 'src/clinic/models/clinic.model';
 
 interface ClientAttr {
+  clinic_id: string;
   passport: string;
   full_name: string;
   birthday: string;
@@ -17,6 +19,20 @@ export class Client extends Model<Client, ClientAttr> {
     primaryKey: true,
   })
   id: string;
+
+  @ForeignKey(() => Clinic)
+  @Column({
+    type: DataType.STRING,
+    onDelete: 'CASCADE',
+    allowNull: false,
+  })
+  clinic_id: string;
+
+  @BelongsTo(() => Clinic, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  clinic: Clinic;
 
   @Column({
     type: DataType.STRING,

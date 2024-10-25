@@ -16,7 +16,9 @@ export class DirectionTypesService {
         direction_type,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to create direction type. Please try again later',
+      );
     }
   }
 
@@ -28,7 +30,9 @@ export class DirectionTypesService {
         direction_types,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve direction types. Please try again later',
+      );
     }
   }
 
@@ -53,7 +57,9 @@ export class DirectionTypesService {
         },
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve direction types. Please try again later',
+      );
     }
   }
 
@@ -70,7 +76,9 @@ export class DirectionTypesService {
         direction_type,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to retrieve direction type. Please try again later',
+      );
     }
   }
 
@@ -83,7 +91,9 @@ export class DirectionTypesService {
         direction_type: direction_type.direction_type,
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to update direction type. Please try again later',
+      );
     }
   }
 
@@ -95,7 +105,9 @@ export class DirectionTypesService {
         message: 'Direction type deleted successfully',
       };
     } catch (error) {
-      throw new BadRequestException(error.message);
+      throw new BadRequestException(
+        'Failed to delete direction type. Please try again later',
+      );
     }
   }
 }

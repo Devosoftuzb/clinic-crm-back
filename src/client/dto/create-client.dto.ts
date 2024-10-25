@@ -9,6 +9,11 @@ import {
 } from 'class-validator';
 
 export class CreateClientDto {
+  @ApiProperty({ example: '', description: 'Clinic ID' })
+  @IsString()
+  @IsNotEmpty()
+  clinic_id: string;
+
   @ApiProperty({ example: 'AC1234567', description: 'Client passport' })
   @IsString()
   @IsNotEmpty()
