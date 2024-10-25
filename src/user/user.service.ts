@@ -43,6 +43,15 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
+      const userExists = await this.repo.findOne({
+        where: { login: createUserDto.login },
+      });
+
+      if (userExists) {
+        throw new BadRequestException(
+          `This login "${createUserDto.login}" already exists`,
+        );
+      }
       const hashedPassword = await bcrypt.hash(createUserDto.password, 7);
       const user = await this.repo.create({
         ...createUserDto,
