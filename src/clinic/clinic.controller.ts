@@ -2,17 +2,18 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Pu
 import { ClinicService } from './clinic.service';
 import { CreateClinicDto } from './dto/create-clinic.dto';
 import { UpdateClinicDto } from './dto/update-clinic.dto';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/common/decorators/roles-auth-decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
+@ApiTags('Clinic')
+@ApiBearerAuth('access-token')
 @Controller('clinic')
 export class ClinicController {
   constructor(private readonly clinicService: ClinicService) {}
 
   @ApiOperation({ summary: 'Create a new clinic' })
-  @ApiBearerAuth('access-token')
   @Roles('superadmin', 'admin')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Post()
@@ -21,7 +22,6 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'View all clinics' })
-  @ApiBearerAuth('access-token')
   @Roles('superadmin', 'admin')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get()
@@ -30,7 +30,6 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'Paginate clinics' })
-  @ApiBearerAuth('access-token')
   @Roles('superadmin', 'admin')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get('page')
@@ -39,7 +38,6 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'View a clinic by ID' })
-  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
@@ -47,7 +45,6 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'Update a clinic by ID' })
-  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Put(':id')
   update(@Param('id') id: string, @Body() updateUpdateDto: UpdateClinicDto) {
@@ -55,7 +52,6 @@ export class ClinicController {
   }
 
   @ApiOperation({ summary: 'Delete a clinic by ID' })
-  @ApiBearerAuth('access-token')
   @Roles('superadmin', 'admin')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Delete(':id')
