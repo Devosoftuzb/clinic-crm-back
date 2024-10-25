@@ -1,4 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { Clinic } from 'src/clinic/models/clinic.model';
 
 interface UserAttr {
   full_name: string;
@@ -56,9 +57,9 @@ export class User extends Model<User, UserAttr> {
   })
   role: 'superadmin'| 'admin'| 'owner';
 
-  // @HasMany(() => School, {
-  //   onDelete: 'CASCADE',
-  //   hooks: true,
-  // })
-  // school: School[];
+  @HasMany(() => Clinic, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  clinics: Clinic[];
 }

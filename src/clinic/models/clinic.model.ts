@@ -40,7 +40,7 @@ export class Clinic extends Model<Clinic, ClinicAttr> {
 
   @ForeignKey(() => User)
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUID,
     onDelete: 'CASCADE',
     allowNull: false,
   })

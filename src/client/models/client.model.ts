@@ -22,7 +22,7 @@ export class Client extends Model<Client, ClientAttr> {
 
   @ForeignKey(() => Clinic)
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUID,
     onDelete: 'CASCADE',
     allowNull: false,
   })
