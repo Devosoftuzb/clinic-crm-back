@@ -32,7 +32,7 @@ export class AuthController {
   @Post('logout')
   async logout(
     @CookieGetter('refresh_token') refreshToken: string,
-    @Body('userId') userId: number,
+    @Body('userId') userId: string,
     @Res({ passthrough: true }) res: Response,
   ) {
     await this.authService.logout(refreshToken, userId, res);
