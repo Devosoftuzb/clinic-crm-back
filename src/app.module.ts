@@ -13,6 +13,8 @@ import { User } from './user/models/user.model';
 import { ClinicModule } from './clinic/clinic.module';
 import { Clinic } from './clinic/models/clinic.model';
 import { AuthModule } from './auth/auth.module';
+import { EmployeesModule } from './employees/employees.module';
+import { Employee } from './employees/models/employee.model';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASS),
       database: process.env.POSTGRES_DB,
-      models: [Client, Direction, DirectionType, User, Clinic],
+      models: [Client, Direction, DirectionType, User, Clinic, Employee],
       autoLoadModels: true,
       logging: false,
     }),
@@ -32,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     UserModule,
     ClinicModule,
+    EmployeesModule,
     ClientModule,
     DirectionsModule,
     DirectionTypesModule,
