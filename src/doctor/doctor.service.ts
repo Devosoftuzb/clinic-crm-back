@@ -151,6 +151,25 @@ export class DoctorService {
   ) {
     try {
       const doctor = await this.findOne(clinic_id, id);
+
+      const doctorExists = await this.repoDoctor.findOne({
+        where: { login: updateDoctorDto.login },
+      });
+
+      const employeeExists = await this.repoEmployee.findOne({
+        where: { login: updateDoctorDto.login },
+      });
+
+      const userExists = await this.repoUser.findOne({
+        where: { login: updateDoctorDto.login },
+      });
+
+      if (userExists || employeeExists || doctorExists) {
+        throw new BadRequestException(
+          `This login "${updateDoctorDto.login}" already exists`,
+        );
+      }
+
       await doctor.doctor.update(updateDoctorDto);
       return {
         message: 'Doctor updated successfully',

@@ -143,7 +143,27 @@ export class UserService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
       const user = await this.findOne(id);
+
+      const userExists = await this.repo.findOne({
+        where: { login: updateUserDto.login },
+      });
+
+      const employeeExists = await this.repoEmployee.findOne({
+        where: { login: updateUserDto.login },
+      });
+
+      const doctorExists = await this.repoDoctor.findOne({
+        where: { login: updateUserDto.login },
+      });
+
+      if (userExists || employeeExists || doctorExists) {
+        throw new BadRequestException(
+          `This login "${updateUserDto.login}" already exists`,
+        );
+      }
+
       await user.user.update(updateUserDto);
+
       return {
         message: 'User updated successfully',
         user: user.user,
