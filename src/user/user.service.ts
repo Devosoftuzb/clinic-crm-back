@@ -47,21 +47,20 @@ export class UserService {
     }
   }
 
+  private async checkExistingUser(login: string) {
+    const doctorExists = await this.repoDoctor.findOne({ where: { login } });
+    const employeeExists = await this.repoEmployee.findOne({
+      where: { login },
+    });
+    const userExists = await this.repo.findOne({ where: { login } });
+    return userExists || employeeExists || doctorExists;
+  }
+
   async create(createUserDto: CreateUserDto) {
     try {
-      const userExists = await this.repo.findOne({
-        where: { login: createUserDto.login },
-      });
+      const existingUser = await this.checkExistingUser(createUserDto.login);
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: createUserDto.login },
-      });
-
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: createUserDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${createUserDto.login}" already exists`,
         );
@@ -144,19 +143,9 @@ export class UserService {
     try {
       const user = await this.findOne(id);
 
-      const userExists = await this.repo.findOne({
-        where: { login: updateUserDto.login },
-      });
+      const existingUser = await this.checkExistingUser(updateUserDto.login);
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: updateUserDto.login },
-      });
-
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: updateUserDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${updateUserDto.login}" already exists`,
         );

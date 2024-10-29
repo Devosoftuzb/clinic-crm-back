@@ -19,6 +19,15 @@ export class DoctorService {
     @InjectModel(User) private repoUser: typeof User,
   ) {}
 
+  private async checkExistingUser(login: string) {
+    const doctorExists = await this.repoDoctor.findOne({ where: { login } });
+    const employeeExists = await this.repoEmployee.findOne({
+      where: { login },
+    });
+    const userExists = await this.repoUser.findOne({ where: { login } });
+    return userExists || employeeExists || doctorExists;
+  }
+
   async create(clinic_id: string, createDoctorDto: CreateDoctorDto) {
     try {
       if (clinic_id !== createDoctorDto.clinic_id) {
@@ -27,19 +36,9 @@ export class DoctorService {
         );
       }
 
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: createDoctorDto.login },
-      });
+      const existingUser = await this.checkExistingUser(createDoctorDto.login);
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: createDoctorDto.login },
-      });
-
-      const userExists = await this.repoUser.findOne({
-        where: { login: createDoctorDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${createDoctorDto.login}" already exists`,
         );
@@ -152,19 +151,9 @@ export class DoctorService {
     try {
       const doctor = await this.findOne(clinic_id, id);
 
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: updateDoctorDto.login },
-      });
+      const existingUser = await this.checkExistingUser(updateDoctorDto.login);
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: updateDoctorDto.login },
-      });
-
-      const userExists = await this.repoUser.findOne({
-        where: { login: updateDoctorDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${updateDoctorDto.login}" already exists`,
         );

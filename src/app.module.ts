@@ -17,6 +17,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { Employee } from './employees/models/employee.model';
 import { DoctorModule } from './doctor/doctor.module';
 import { Doctor } from './doctor/models/doctor.model';
+import { DoctorDirectionModule } from './doctor_direction/doctor_direction.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { Doctor } from './doctor/models/doctor.model';
     ClientModule,
     DirectionsModule,
     DirectionTypesModule,
+    DoctorDirectionModule,
   ],
   controllers: [],
   providers: [],

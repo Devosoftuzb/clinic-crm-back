@@ -19,6 +19,15 @@ export class EmployeesService {
     @InjectModel(Doctor) private repoDoctor: typeof Doctor,
   ) {}
 
+  private async checkExistingUser(login: string) {
+    const doctorExists = await this.repoDoctor.findOne({ where: { login } });
+    const employeeExists = await this.repoEmployee.findOne({
+      where: { login },
+    });
+    const userExists = await this.repoUser.findOne({ where: { login } });
+    return userExists || employeeExists || doctorExists;
+  }
+
   async create(clinic_id: string, createEmployeeDto: CreateEmployeeDto) {
     try {
       if (clinic_id !== createEmployeeDto.clinic_id) {
@@ -27,19 +36,11 @@ export class EmployeesService {
         );
       }
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: createEmployeeDto.login },
-      });
+      const existingUser = await this.checkExistingUser(
+        createEmployeeDto.login,
+      );
 
-      const userExists = await this.repoUser.findOne({
-        where: { login: createEmployeeDto.login },
-      });
-
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: createEmployeeDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${createEmployeeDto.login}" already exists`,
         );
@@ -152,19 +153,11 @@ export class EmployeesService {
     try {
       const employee = await this.findOne(clinic_id, id);
 
-      const employeeExists = await this.repoEmployee.findOne({
-        where: { login: updateEmployeeDto.login },
-      });
+      const existingUser = await this.checkExistingUser(
+        updateEmployeeDto.login,
+      );
 
-      const userExists = await this.repoUser.findOne({
-        where: { login: updateEmployeeDto.login },
-      });
-
-      const doctorExists = await this.repoDoctor.findOne({
-        where: { login: updateEmployeeDto.login },
-      });
-
-      if (userExists || employeeExists || doctorExists) {
+      if (existingUser) {
         throw new BadRequestException(
           `This login "${updateEmployeeDto.login}" already exists`,
         );
