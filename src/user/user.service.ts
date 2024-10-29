@@ -9,12 +9,14 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import * as bcrypt from 'bcrypt';
 import { Employee } from 'src/employees/models/employee.model';
+import { Doctor } from 'src/doctor/models/doctor.model';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User) private repo: typeof User,
     @InjectModel(Employee) private repoEmployee: typeof Employee,
+    @InjectModel(Doctor) private repoDoctor: typeof Doctor,
   ) {}
 
   async onModuleInit() {
@@ -55,7 +57,11 @@ export class UserService {
         where: { login: createUserDto.login },
       });
 
-      if (userExists || employeeExists) {
+      const doctorExists = await this.repoDoctor.findOne({
+        where: { login: createUserDto.login },
+      });
+
+      if (userExists || employeeExists || doctorExists) {
         throw new BadRequestException(
           `This login "${createUserDto.login}" already exists`,
         );

@@ -11,7 +11,7 @@ import {
 export class CreateEmployeeDto {
   @ApiProperty({
     example: 'a76eadf0-e2ef-4357-aa08-744e5c045a27',
-    description: 'Employee ID',
+    description: 'Clinic ID',
   })
   @IsString()
   @IsNotEmpty()

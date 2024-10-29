@@ -9,27 +9,28 @@ import * as bcrypt from 'bcrypt';
 import { User } from 'src/user/models/user.model';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { Employee } from 'src/employees/models/employee.model';
+import { Doctor } from 'src/doctor/models/doctor.model';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectModel(User) private readonly repoUser: typeof User,
+    @InjectModel(Employee) private readonly repoEmployee: typeof Employee,
+    @InjectModel(Doctor) private readonly repoDoctor: typeof Doctor,
     private readonly jwtService: JwtService,
   ) {}
 
   async login(loginDto: LoginDto) {
     const { login, password } = loginDto;
-    const user = await this.findUserByPhoneNumber(login);
+    const user = await this.findUserByLogin(login);
     if (!user || !(await bcrypt.compare(password, user.hashed_password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const tokens = await this.getTokens(user.id, user.role);
-    await this.updateRefreshToken(user.id, tokens.refresh_token);
-    return {
-      user,
-      tokens,
-    };
+    const tokens = await this.generateTokens(user.id, user.role);
+    await this.updateRefreshToken(user, tokens.refresh_token);
+    return { user, tokens };
   }
 
   async logout(refreshToken: string, userId: string) {
@@ -47,20 +48,28 @@ export class AuthService {
       throw new ForbiddenException('Access Denied');
     }
 
-    const tokens = await this.getTokens(user.id, user.role);
-    await this.updateRefreshToken(user.id, tokens.refresh_token);
+    const tokens = await this.generateTokens(user.id, user.role);
+    await this.updateRefreshToken(user, tokens.refresh_token);
     return tokens;
   }
 
-  private async findUserByPhoneNumber(login: string) {
-    return await this.repoUser.findOne({ where: { login } });
+  private async findUserByLogin(login: string) {
+    return (
+      (await this.repoUser.findOne({ where: { login } })) ||
+      (await this.repoEmployee.findOne({ where: { login } })) ||
+      (await this.repoDoctor.findOne({ where: { login } }))
+    );
   }
 
   private async findUserById(id: string) {
-    return await this.repoUser.findByPk(id);
+    return (
+      (await this.repoUser.findByPk(id)) ||
+      (await this.repoEmployee.findByPk(id)) ||
+      (await this.repoDoctor.findByPk(id))
+    );
   }
 
-  async getTokens(userId: string, role: string) {
+  private async generateTokens(userId: string, role: string) {
     const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(
         { id: userId, role },
@@ -80,26 +89,44 @@ export class AuthService {
     return { access_token, refresh_token };
   }
 
-  async updateRefreshToken(userId: string, refreshToken: string) {
+  private async updateRefreshToken(
+    user: User | Employee | Doctor,
+    refreshToken: string,
+  ) {
     const hashedRefreshToken = await bcrypt.hash(refreshToken, 7);
-    await this.repoUser.update(
-      { hashed_refresh_token: hashedRefreshToken },
-      { where: { id: userId } },
-    );
+    const updateData = { hashed_refresh_token: hashedRefreshToken };
+
+    if (user instanceof User) {
+      await this.repoUser.update(updateData, { where: { id: user.id } });
+    } else if (user instanceof Employee) {
+      await this.repoEmployee.update(updateData, { where: { id: user.id } });
+    } else if (user instanceof Doctor) {
+      await this.repoDoctor.update(updateData, { where: { id: user.id } });
+    }
   }
 
-  async clearRefreshToken(refreshToken: string, userId: string) {
+  private async clearRefreshToken(refreshToken: string, userId: string) {
     const user = await this.findUserById(userId);
-    if (
-      !user ||
-      !(await bcrypt.compare(refreshToken, user.hashed_refresh_token))
-    ) {
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const isTokenValid = await bcrypt.compare(
+      refreshToken,
+      user.hashed_refresh_token,
+    );
+    if (!isTokenValid) {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    await this.repoUser.update(
-      { hashed_refresh_token: null },
-      { where: { id: userId } },
-    );
+    const updateData = { hashed_refresh_token: null };
+
+    if (user instanceof User) {
+      await this.repoUser.update(updateData, { where: { id: user.id } });
+    } else if (user instanceof Employee) {
+      await this.repoEmployee.update(updateData, { where: { id: user.id } });
+    } else if (user instanceof Doctor) {
+      await this.repoDoctor.update(updateData, { where: { id: user.id } });
+    }
   }
 }
