@@ -7,7 +7,7 @@ import { Roles } from 'src/common/decorators/roles-auth-decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
-@ApiTags('Direction Type')
+@ApiTags('Doctor Direction')
 @ApiBearerAuth('access-token')
 @Roles('manager', 'administrator', 'doctor', 'accountant', 'storekeeper')
 @UseGuards(RolesGuard, JwtAuthGuard)
