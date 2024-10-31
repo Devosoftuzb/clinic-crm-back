@@ -20,6 +20,7 @@ import { Doctor } from './doctor/models/doctor.model';
 import { DoctorDirectionModule } from './doctor_direction/doctor_direction.module';
 import { DoctorDirection } from './doctor_direction/models/doctor_direction.model';
 import { VisitsModule } from './visits/visits.module';
+import { Visit } from './visits/models/visit.model';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { VisitsModule } from './visits/visits.module';
         Employee,
         Doctor,
         DoctorDirection,
+        Visit
       ],
       autoLoadModels: true,
       logging: false,
