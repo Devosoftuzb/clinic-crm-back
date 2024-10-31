@@ -55,9 +55,18 @@ export class AuthService {
 
   private async findUserByLogin(login: string) {
     return (
-      (await this.repoUser.findOne({ where: { login } })) ||
-      (await this.repoEmployee.findOne({ where: { login } })) ||
-      (await this.repoDoctor.findOne({ where: { login } }))
+      (await this.repoUser.findOne({
+        where: { login },
+        include: { all: true },
+      })) ||
+      (await this.repoEmployee.findOne({
+        where: { login },
+        include: { all: true },
+      })) ||
+      (await this.repoDoctor.findOne({
+        where: { login },
+        include: { all: true },
+      }))
     );
   }
 

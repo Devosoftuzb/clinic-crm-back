@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateDirectionTypeDto } from './dto/create-direction_type.dto';
 import { UpdateDirectionTypeDto } from './dto/update-direction_type.dto';
 import { InjectModel } from '@nestjs/sequelize';
-import { DirectionType } from './models/direction_type.model';
+import { DirectionType } from './models/direction_types.model';
 
 @Injectable()
 export class DirectionTypesService {

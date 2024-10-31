@@ -9,6 +9,8 @@ import {
 } from 'sequelize-typescript';
 import { Client } from 'src/client/models/client.model';
 import { Direction } from 'src/directions/models/direction.model';
+import { Doctor } from 'src/doctor/models/doctor.model';
+import { Employee } from 'src/employees/models/employee.model';
 import { User } from 'src/user/models/user.model';
 
 interface ClinicAttr {
@@ -63,4 +65,16 @@ export class Clinic extends Model<Clinic, ClinicAttr> {
     hooks: true,
   })
   directions: Direction[];
+
+  @HasMany(() => Employee, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  employees: Employee[];
+
+  @HasMany(() => Doctor, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  doctors: Doctor[];
 }

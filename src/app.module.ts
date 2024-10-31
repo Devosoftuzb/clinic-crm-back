@@ -7,7 +7,7 @@ import { Client } from './client/models/client.model';
 import { DirectionsModule } from './directions/directions.module';
 import { Direction } from './directions/models/direction.model';
 import { DirectionTypesModule } from './direction_types/direction_types.module';
-import { DirectionType } from './direction_types/models/direction_type.model';
+import { DirectionType } from './direction_types/models/direction_types.model';
 import { UserModule } from './user/user.module';
 import { User } from './user/models/user.model';
 import { ClinicModule } from './clinic/clinic.module';
@@ -19,6 +19,7 @@ import { DoctorModule } from './doctor/doctor.module';
 import { Doctor } from './doctor/models/doctor.model';
 import { DoctorDirectionModule } from './doctor_direction/doctor_direction.module';
 import { DoctorDirection } from './doctor_direction/models/doctor_direction.model';
+import { VisitsModule } from './visits/visits.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { DoctorDirection } from './doctor_direction/models/doctor_direction.mode
     DirectionsModule,
     DirectionTypesModule,
     DoctorDirectionModule,
+    VisitsModule,
   ],
   controllers: [],
   providers: [],

@@ -3,12 +3,15 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { DoctorDirection } from 'src/doctor_direction/models/doctor_direction.model';
 
 interface DoctorAttr {
+  clinic_id: string;
   full_name: string;
   birthday: string;
   phone_number: string;
@@ -91,4 +94,10 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
     allowNull: false,
   })
   role: 'doctor' | 'lab_technician';
+
+  @HasMany(() => DoctorDirection, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  doctorDirection: DoctorDirection[];
 }

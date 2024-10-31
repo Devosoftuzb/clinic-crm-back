@@ -6,7 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { DirectionType } from 'src/direction_types/models/direction_type.model';
+import { DirectionType } from 'src/direction_types/models/direction_types.model';
 import { Doctor } from 'src/doctor/models/doctor.model';
 
 interface DoctorDirectionAttr {
@@ -43,7 +43,7 @@ export class DoctorDirection extends Model<
 
   @ForeignKey(() => Doctor)
   @Column({
-    type: DataType.STRING,
+    type: DataType.UUID,
     onDelete: 'CASCADE',
     allowNull: false,
   })

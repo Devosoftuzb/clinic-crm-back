@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
-import { DirectionType } from 'src/direction_types/models/direction_type.model';
+import { DirectionType } from 'src/direction_types/models/direction_types.model';
 
 interface DirectionAttr {
   clinic_id: string;
