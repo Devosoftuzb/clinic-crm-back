@@ -21,6 +21,7 @@ import { DoctorDirectionModule } from './doctor_direction/doctor_direction.modul
 import { DoctorDirection } from './doctor_direction/models/doctor_direction.model';
 import { VisitsModule } from './visits/visits.module';
 import { Visit } from './visits/models/visit.model';
+import { VisitDirectionsModule } from './visit_directions/visit_directions.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { Visit } from './visits/models/visit.model';
     DirectionTypesModule,
     DoctorDirectionModule,
     VisitsModule,
+    VisitDirectionsModule,
   ],
   controllers: [],
   providers: [],

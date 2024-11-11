@@ -153,14 +153,15 @@ export class EmployeesService {
     try {
       const employee = await this.findOne(clinic_id, id);
 
-      const existingUser = await this.checkExistingUser(
-        updateEmployeeDto.login,
-      );
-
-      if (existingUser) {
-        throw new BadRequestException(
-          `This login "${updateEmployeeDto.login}" already exists`,
+      if (updateEmployeeDto.login !== employee.employee.login) {
+        const existingUser = await this.checkExistingUser(
+          updateEmployeeDto.login,
         );
+        if (existingUser) {
+          throw new BadRequestException(
+            `This login "${updateEmployeeDto.login}" already exists`,
+          );
+        }
       }
 
       await employee.employee.update(updateEmployeeDto);
@@ -177,8 +178,7 @@ export class EmployeesService {
 
   async remove(clinic_id: string, id: string) {
     try {
-      const employee = await this.findOne(clinic_id, id);
-      await employee.employee.destroy();
+      await this.repoEmployee.destroy({ where: { clinic_id, id } });
       return {
         message: 'Employee deleted successfully',
       };
