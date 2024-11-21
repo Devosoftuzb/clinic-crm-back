@@ -99,8 +99,7 @@ export class DirectionTypesService {
 
   async remove(id: number) {
     try {
-      const direction_type = await this.findOne(id);
-      await direction_type.direction_type.destroy();
+      await this.repo.destroy({ where: { id } });
       return {
         message: 'Direction type deleted successfully',
       };

@@ -22,6 +22,7 @@ import { DoctorDirection } from './doctor_direction/models/doctor_direction.mode
 import { VisitsModule } from './visits/visits.module';
 import { Visit } from './visits/models/visit.model';
 import { VisitDirectionsModule } from './visit_directions/visit_directions.module';
+import { VisitDirection } from './visit_directions/models/visit_direction.model';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { VisitDirectionsModule } from './visit_directions/visit_directions.modul
         Employee,
         Doctor,
         DoctorDirection,
-        Visit
+        Visit,
+        VisitDirection
       ],
       autoLoadModels: true,
       logging: false,

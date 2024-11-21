@@ -12,6 +12,7 @@ import { Direction } from 'src/directions/models/direction.model';
 import { Doctor } from 'src/doctor/models/doctor.model';
 import { Employee } from 'src/employees/models/employee.model';
 import { User } from 'src/user/models/user.model';
+import { Visit } from 'src/visits/models/visit.model';
 
 interface ClinicAttr {
   name: string;
@@ -77,4 +78,10 @@ export class Clinic extends Model<Clinic, ClinicAttr> {
     hooks: true,
   })
   doctors: Doctor[];
+
+  @HasMany(() => Visit, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  visits: Visit[];
 }

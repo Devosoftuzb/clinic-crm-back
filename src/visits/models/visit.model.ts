@@ -3,11 +3,13 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Client } from 'src/client/models/client.model';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
 interface VisitAttr {
   clinic_id: string;
@@ -79,6 +81,6 @@ export class Visit extends Model<Visit, VisitAttr> {
   })
   discount: number;
 
-  //   @HasMany(() => VisitDirection)
-  //   visitDirections: VisitDirection[];
+    @HasMany(() => VisitDirection)
+    visitDirections: VisitDirection[];
 }

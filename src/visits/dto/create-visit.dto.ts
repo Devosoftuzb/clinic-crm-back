@@ -32,11 +32,6 @@ export class CreateVisitDto {
   @IsNotEmpty()
   stay_type: 'outpatient' | 'hospital';
 
-  @ApiProperty({ example: 2000000, description: 'Total amount' })
-  @IsInt()
-  @IsNotEmpty()
-  total_amount: number;
-
   @ApiProperty({ example: 2000000, description: 'Total balance' })
   @IsInt()
   @IsNotEmpty()

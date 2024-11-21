@@ -130,8 +130,7 @@ export class VisitsService {
 
   async remove(clinic_id: string, id: number) {
     try {
-      const visit = await this.findOne(clinic_id, id);
-      await visit.visit.destroy();
+      await this.repo.destroy({ where: { clinic_id, id } });
       return {
         message: 'Visit deleted successfully',
       };

@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
 import { DirectionType } from 'src/direction_types/models/direction_types.model';
+import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
 interface DirectionAttr {
   clinic_id: string;
@@ -41,4 +42,10 @@ export class Direction extends Model<Direction, DirectionAttr> {
     hooks: true,
   })
   direction_types: DirectionType[];
+
+  @HasMany(() => VisitDirection, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  visit_directions: VisitDirection[];
 }

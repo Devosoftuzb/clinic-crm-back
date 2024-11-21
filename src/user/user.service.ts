@@ -143,12 +143,14 @@ export class UserService {
     try {
       const user = await this.findOne(id);
 
-      const existingUser = await this.checkExistingUser(updateUserDto.login);
+      if (updateUserDto.login !== user.user.login) {
+        const existingUser = await this.checkExistingUser(updateUserDto.login);
 
-      if (existingUser) {
-        throw new BadRequestException(
-          `This login "${updateUserDto.login}" already exists`,
-        );
+        if (existingUser) {
+          throw new BadRequestException(
+            `This login "${updateUserDto.login}" already exists`,
+          );
+        }
       }
 
       await user.user.update(updateUserDto);
@@ -166,8 +168,7 @@ export class UserService {
 
   async remove(id: string) {
     try {
-      const user = await this.findOne(id);
-      await user.user.destroy();
+      await this.repo.destroy({ where: { id } });
       return {
         message: 'User deleted successfully',
       };

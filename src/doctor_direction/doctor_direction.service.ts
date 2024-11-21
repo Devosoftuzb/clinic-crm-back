@@ -103,8 +103,7 @@ export class DoctorDirectionService {
 
   async remove(id: number) {
     try {
-      const doctor_direction = await this.findOne(id);
-      await doctor_direction.doctor_direction.destroy();
+      await this.repo.destroy({ where: { id } });
       return {
         message: 'Doctor direction deleted successfully',
       };

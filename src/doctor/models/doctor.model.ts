@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
 import { DoctorDirection } from 'src/doctor_direction/models/doctor_direction.model';
+import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
 interface DoctorAttr {
   clinic_id: string;
@@ -100,4 +101,10 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
     hooks: true,
   })
   doctorDirection: DoctorDirection[];
+
+  @HasMany(() => VisitDirection, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  visit_directions: VisitDirection[];
 }

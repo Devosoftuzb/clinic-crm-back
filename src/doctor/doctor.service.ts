@@ -151,12 +151,16 @@ export class DoctorService {
     try {
       const doctor = await this.findOne(clinic_id, id);
 
-      const existingUser = await this.checkExistingUser(updateDoctorDto.login);
-
-      if (existingUser) {
-        throw new BadRequestException(
-          `This login "${updateDoctorDto.login}" already exists`,
+      if (updateDoctorDto.login !== doctor.doctor.login) {
+        const existingUser = await this.checkExistingUser(
+          updateDoctorDto.login,
         );
+
+        if (existingUser) {
+          throw new BadRequestException(
+            `This login "${updateDoctorDto.login}" already exists`,
+          );
+        }
       }
 
       await doctor.doctor.update(updateDoctorDto);
@@ -173,8 +177,7 @@ export class DoctorService {
 
   async remove(clinic_id: string, id: string) {
     try {
-      const doctor = await this.findOne(clinic_id, id);
-      await doctor.doctor.destroy();
+      await this.repoDoctor.destroy({ where: { clinic_id, id } });
       return {
         message: 'Doctor deleted successfully',
       };

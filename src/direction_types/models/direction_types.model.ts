@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Direction } from 'src/directions/models/direction.model';
 import { DoctorDirection } from 'src/doctor_direction/models/doctor_direction.model';
+import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
 interface DirectionTypeAttr {
   direction_id: number;
@@ -49,4 +50,11 @@ export class DirectionType extends Model<DirectionType, DirectionTypeAttr> {
     hooks: true,
   })
   doctorDirection: DoctorDirection[];
+
+  @HasMany(() => VisitDirection, {
+    onDelete: 'CASCADE',
+    hooks: true,
+  })
+  visit_directions: VisitDirection[];
+
 }
