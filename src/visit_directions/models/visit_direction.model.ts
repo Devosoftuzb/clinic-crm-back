@@ -18,6 +18,11 @@ interface VisitDirectionAttr {
   doctor_id: number;
   price: number;
   line: number;
+  status: boolean;
+  is_payment: boolean;
+  is_checked: boolean;
+  diagnosis: string;
+  retsept: string;
 }
 
 @Table({ tableName: 'visit_direction' })
@@ -80,4 +85,37 @@ export class VisitDirection extends Model<VisitDirection, VisitDirectionAttr> {
     allowNull: false,
   })
   line: number;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  })
+  status: boolean;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
+  is_payment: boolean;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
+  is_checked: boolean;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  diagnosis: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  retsept: string;
 }
