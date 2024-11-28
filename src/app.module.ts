@@ -23,6 +23,8 @@ import { VisitsModule } from './visits/visits.module';
 import { Visit } from './visits/models/visit.model';
 import { VisitDirectionsModule } from './visit_directions/visit_directions.module';
 import { VisitDirection } from './visit_directions/models/visit_direction.model';
+import { RoomModule } from './room/room.module';
+import { Room } from './room/models/room.model';
 
 @Module({
   imports: [
@@ -44,7 +46,8 @@ import { VisitDirection } from './visit_directions/models/visit_direction.model'
         Doctor,
         DoctorDirection,
         Visit,
-        VisitDirection
+        VisitDirection,
+        Room,
       ],
       autoLoadModels: true,
       logging: false,
@@ -61,6 +64,7 @@ import { VisitDirection } from './visit_directions/models/visit_direction.model'
     DoctorDirectionModule,
     VisitsModule,
     VisitDirectionsModule,
+    RoomModule,
   ],
   controllers: [],
   providers: [],

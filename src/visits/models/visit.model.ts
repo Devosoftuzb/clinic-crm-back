@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Client } from 'src/client/models/client.model';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { Room } from 'src/room/models/room.model';
 import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
 interface VisitAttr {
@@ -19,6 +20,7 @@ interface VisitAttr {
   total_amount: number;
   total_balance: number;
   discount: number;
+  room_id: number;
 }
 
 @Table({ tableName: 'visits' })
@@ -81,6 +83,16 @@ export class Visit extends Model<Visit, VisitAttr> {
   })
   discount: number;
 
-    @HasMany(() => VisitDirection)
-    visitDirections: VisitDirection[];
+  @ForeignKey(() => Room)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  room_id: string;
+
+  @BelongsTo(() => Room)
+  room: Room;
+
+  @HasMany(() => VisitDirection)
+  visitDirections: VisitDirection[];
 }
