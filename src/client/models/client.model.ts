@@ -1,4 +1,11 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
 
 interface ClientAttr {
@@ -9,6 +16,7 @@ interface ClientAttr {
   phone_number: string;
   sex: 'male' | 'female';
   nonresident: boolean;
+  address: string;
 }
 
 @Table({ tableName: 'client' })
@@ -71,4 +79,10 @@ export class Client extends Model<Client, ClientAttr> {
     defaultValue: false,
   })
   nonresident: boolean;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  address: string;
 }

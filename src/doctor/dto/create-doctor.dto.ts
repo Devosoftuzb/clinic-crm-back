@@ -36,23 +36,19 @@ export class CreateDoctorDto {
   // room: string;
 
   @ApiProperty({ example: 'john', description: 'Employee login' })
-  @IsString()
-  @IsNotEmpty()
   @MinLength(3)
   login: string;
 
   @ApiProperty({ example: 'password', description: 'Employee password' })
-  @IsString()
-  @IsNotEmpty()
   @MinLength(6)
   password: string;
 
   @ApiProperty({
     example: 'doctor',
-    enum: ['doctor', 'lab_technician'],
+    enum: ['doctor', 'lab_technician', 'external_doctor'],
     description: 'Role name',
   })
-  @IsEnum(['doctor', 'lab_technician'])
+  @IsEnum(['doctor', 'lab_technician', 'external_doctor'])
   @IsNotEmpty()
-  role: 'doctor' | 'lab_technician';
+  role: 'doctor' | 'lab_technician'| 'external_doctor';
 }

@@ -21,7 +21,7 @@ interface DoctorAttr {
   login: string;
   hashed_password: string;
   hashed_refresh_token: string;
-  role: 'doctor' | 'lab_technician';
+  role: 'doctor' | 'lab_technician' | 'external_doctor';
 }
 
 @Table({ tableName: 'doctor' })
@@ -98,10 +98,10 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
 
   @Column({
     type: DataType.ENUM,
-    values: ['doctor', 'lab_technician'],
+    values: ['doctor', 'lab_technician', 'external_doctor'],
     allowNull: false,
   })
-  role: 'doctor' | 'lab_technician';
+  role: 'doctor' | 'lab_technician' | 'external_doctor';
 
   @HasMany(() => DoctorDirection, {
     onDelete: 'CASCADE',

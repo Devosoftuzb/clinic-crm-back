@@ -21,6 +21,9 @@ interface VisitAttr {
   total_balance: number;
   discount: number;
   room_id: number;
+  start_date: string;
+  end_date: string;
+  is_partner: boolean;
 }
 
 @Table({ tableName: 'visits' })
@@ -92,6 +95,25 @@ export class Visit extends Model<Visit, VisitAttr> {
 
   @BelongsTo(() => Room)
   room: Room;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  start_date: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  end_date: string;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
+  is_partner: boolean;
 
   @HasMany(() => VisitDirection)
   visitDirections: VisitDirection[];

@@ -118,4 +118,14 @@ export class VisitDirection extends Model<VisitDirection, VisitDirectionAttr> {
     allowNull: false,
   })
   retsept: string;
+
+  @ForeignKey(() => Doctor)
+  @Column({
+    type: DataType.UUID,
+    allowNull: false,
+  })
+  id_doctor_id: string;
+
+  @BelongsTo(() => Doctor)
+  id_doctor: Doctor;
 }
