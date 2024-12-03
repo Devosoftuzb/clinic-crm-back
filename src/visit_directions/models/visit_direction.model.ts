@@ -23,6 +23,7 @@ interface VisitDirectionAttr {
   is_checked: boolean;
   diagnosis: string;
   retsept: string;
+  id_doctor_id: string
 }
 
 @Table({ tableName: 'visit_direction' })
