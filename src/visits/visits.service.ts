@@ -19,6 +19,31 @@ export class VisitsService {
           'Clinic ID does not match the provided visit clinic ID',
         );
       }
+
+      const currentDate = new Date();
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+
+      const visits = await this.repo.findAll({
+        where: {
+          clinic_id: clinic_id,
+          client_id: createVisitDto.client_id,
+          visit_date: {
+            $gte: oneYearAgo,
+            $lte: currentDate,
+          },
+        },
+      });
+
+      let discount = 0;
+      if (visits.length == 1) {
+        discount = 5;
+      } else if (visits.length >= 2) {
+        discount = 10;
+      }
+
+      createVisitDto.discount = discount;
+
       const visit = await this.repo.create(createVisitDto);
       return {
         message: 'Visit created successfully',

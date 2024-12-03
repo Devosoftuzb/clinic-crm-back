@@ -10,6 +10,7 @@ import { Employee } from 'src/employees/models/employee.model';
 import { User } from 'src/user/models/user.model';
 import { Doctor } from './models/doctor.model';
 import * as bcrypt from 'bcrypt';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class DoctorService {
@@ -63,6 +64,55 @@ export class DoctorService {
     try {
       const doctors = await this.repoDoctor.findAll({
         where: { clinic_id },
+      });
+      if (!doctors || doctors.length === 0) {
+        throw new NotFoundException(
+          'No doctors found for the specified clinic ID',
+        );
+      }
+      return {
+        message: 'Doctors retrieved successfully',
+        doctors,
+      };
+    } catch (error) {
+      throw new BadRequestException(
+        'Failed to retrieve doctors. Please try again later',
+      );
+    }
+  }
+
+  async findClinicDoctors(clinic_id: string) {
+    try {
+      const doctors = await this.repoDoctor.findAll({
+        where: {
+          clinic_id: clinic_id,
+          role: {
+            [Op.or]: ['doctor', 'lab_technician'],
+          },
+        },
+      });
+
+      if (!doctors || doctors.length === 0) {
+        throw new NotFoundException(
+          'No doctors found for the specified clinic ID',
+        );
+      }
+
+      return {
+        message: 'Doctors retrieved successfully',
+        doctors,
+      };
+    } catch (error) {
+      throw new BadRequestException(
+        'Failed to retrieve doctors. Please try again later',
+      );
+    }
+  }
+
+  async findExternalDoctors(clinic_id: string) {
+    try {
+      const doctors = await this.repoDoctor.findAll({
+        where: { clinic_id, role: 'external_doctor' },
       });
       if (!doctors || doctors.length === 0) {
         throw new NotFoundException(

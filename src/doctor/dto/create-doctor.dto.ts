@@ -30,6 +30,11 @@ export class CreateDoctorDto {
   @IsInt()
   experience: number;
 
+  // @ApiProperty({ example: '1 etaj 2 xona', description: 'Doctor room' })
+  // @IsString()
+  // @IsNotEmpty()
+  // room: string;
+
   @ApiProperty({ example: 'john', description: 'Employee login' })
   @IsString()
   @IsNotEmpty()

@@ -17,6 +17,7 @@ interface DoctorAttr {
   birthday: string;
   phone_number: string;
   experience: number;
+  room: string;
   login: string;
   hashed_password: string;
   hashed_refresh_token: string;
@@ -69,6 +70,12 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
     allowNull: false,
   })
   experience: number;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  room: string;
 
   @Column({
     type: DataType.STRING,

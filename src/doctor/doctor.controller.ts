@@ -32,6 +32,22 @@ export class DoctorController {
     return this.doctorService.findAll(clinic_id);
   }
 
+  @ApiOperation({ summary: 'View all clinic doctors' })
+  @Roles('owner', 'manager')
+  @UseGuards(RolesGuard, JwtAuthGuard)
+  @Get('clinicDoctors/:clinic_id')
+  findClinicDoctors(@Param('clinic_id') clinic_id: string) {
+    return this.doctorService.findClinicDoctors(clinic_id);
+  }
+
+  @ApiOperation({ summary: 'View all external doctors' })
+  @Roles('owner', 'manager')
+  @UseGuards(RolesGuard, JwtAuthGuard)
+  @Get('externalDoctors/:clinic_id')
+  findExternalDoctors(@Param('clinic_id') clinic_id: string) {
+    return this.doctorService.findExternalDoctors(clinic_id);
+  }
+
   @ApiOperation({ summary: 'Paginate doctors' })
   @Roles('owner', 'manager')
   @UseGuards(RolesGuard, JwtAuthGuard)

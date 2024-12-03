@@ -137,6 +137,23 @@ export class VisitDirectionsService {
     try {
       const visit_direction = await this.findOne(id);
       await visit_direction.visit_direction.update(updateVisitDirectionDto);
+      
+      if (visit_direction.visit_direction.status == false) {
+        const visit = await this.repoVisit.findOne({
+          where: {
+            id: updateVisitDirectionDto.visit_id,
+          },
+        });
+
+        if (!visit) {
+          throw new BadRequestException('Visit not found');
+        }
+
+        await visit.update({
+          total_amount:
+            visit.total_amount - visit_direction.visit_direction.price,
+        });
+      }
       return {
         message: 'Visit direction updated successfully',
         visit_direction: visit_direction.visit_direction,
