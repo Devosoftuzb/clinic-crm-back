@@ -27,6 +27,7 @@ export class ClientService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to create client. Please try again later',
+        error
       );
     }
   }
