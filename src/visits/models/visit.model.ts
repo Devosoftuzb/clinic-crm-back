@@ -71,6 +71,7 @@ export class Visit extends Model<Visit, VisitAttr> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    defaultValue: 0,
   })
   total_amount: number;
 
@@ -83,13 +84,14 @@ export class Visit extends Model<Visit, VisitAttr> {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
+    defaultValue: 0,
   })
   discount: number;
 
   @ForeignKey(() => Room)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
   })
   room_id: string;
 
@@ -98,13 +100,13 @@ export class Visit extends Model<Visit, VisitAttr> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   start_date: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   end_date: string;
 

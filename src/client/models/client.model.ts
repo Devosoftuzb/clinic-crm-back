@@ -82,7 +82,7 @@ export class Client extends Model<Client, ClientAttr> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   address: string;
 }

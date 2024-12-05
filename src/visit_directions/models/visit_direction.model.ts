@@ -110,20 +110,20 @@ export class VisitDirection extends Model<VisitDirection, VisitDirectionAttr> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   diagnosis: string;
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   retsept: string;
 
   @ForeignKey(() => Doctor)
   @Column({
     type: DataType.UUID,
-    allowNull: false,
+    allowNull: true,
   })
   id_doctor_id: string;
 
