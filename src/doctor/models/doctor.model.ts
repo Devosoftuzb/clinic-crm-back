@@ -73,7 +73,7 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   room: string;
 
