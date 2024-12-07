@@ -25,6 +25,10 @@ import { VisitDirectionsModule } from './visit_directions/visit_directions.modul
 import { VisitDirection } from './visit_directions/models/visit_direction.model';
 import { RoomModule } from './room/room.module';
 import { Room } from './room/models/room.model';
+// import { TheadModule } from './thead/thead.module';
+// import { TbodyModule } from './tbody/tbody.module';
+// import { Thead } from './thead/models/thead.model';
+// import { Tbody } from './tbody/models/tbody.model';
 
 @Module({
   imports: [
@@ -48,6 +52,8 @@ import { Room } from './room/models/room.model';
         Visit,
         VisitDirection,
         Room,
+        // Thead,
+        // Tbody,
       ],
       autoLoadModels: true,
       logging: false,
@@ -65,6 +71,8 @@ import { Room } from './room/models/room.model';
     VisitsModule,
     VisitDirectionsModule,
     RoomModule,
+    // TheadModule,
+    // TbodyModule,
   ],
   controllers: [],
   providers: [],

@@ -47,6 +47,12 @@ export class VisitsController {
     return this.visitsService.paginate(clinic_id, page);
   }
 
+  @ApiOperation({ summary: 'Paginate visits' })
+  @Get(':clinic_id/page')
+  paginateOneDayVisit(@Param('clinic_id') clinic_id: string, @Query('page') page: number) {
+    return this.visitsService.paginateOneDayVisit(clinic_id, page);
+  }
+
   @ApiOperation({ summary: 'View a visit by ID' })
   @Get(':clinic_id/:id')
   findOne(@Param('clinic_id') clinic_id: string, @Param('id') id: string) {
