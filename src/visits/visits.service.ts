@@ -7,7 +7,7 @@ import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Visit } from './models/visit.model';
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 
 @Injectable()
 export class VisitsService {
@@ -30,7 +30,7 @@ export class VisitsService {
       });
 
       if (!firstVisit) {
-        createVisitDto.discount = 0; 
+        createVisitDto.discount = 0;
       } else {
         const firstVisitDate = new Date(firstVisit.createdAt);
         const oneYearAfterFirstVisit = new Date(firstVisitDate);
@@ -58,10 +58,22 @@ export class VisitsService {
       }
 
       const visit = await this.repo.create(createVisitDto);
-      return {
-        message: 'Visit created successfully',
-        visit,
-      };
+
+      if (visit.room_id !== null) {
+        const visitUpdate = await this.repo.update(
+          { total_amount: visit.room.price, ...createVisitDto },
+          { where: { id: visit.id } },
+        );
+        return {
+          message: 'Visit created successfully',
+          visitUpdate,
+        };
+      } else {
+        return {
+          message: 'Visit created successfully',
+          visit,
+        };
+      }
     } catch (error) {
       throw new BadRequestException(
         'Failed to create visit. Please try again later',

@@ -123,6 +123,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Visit.prototype, "is_partner", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+    }),
+    __metadata("design:type", Boolean)
+], Visit.prototype, "is_room_payment", void 0);
+__decorate([
     (0, sequelize_typescript_1.HasMany)(() => visit_direction_model_1.VisitDirection),
     __metadata("design:type", Array)
 ], Visit.prototype, "visitDirections", void 0);

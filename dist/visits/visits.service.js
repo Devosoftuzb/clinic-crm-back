@@ -60,10 +60,19 @@ let VisitsService = class VisitsService {
                 createVisitDto.discount = discount;
             }
             const visit = await this.repo.create(createVisitDto);
-            return {
-                message: 'Visit created successfully',
-                visit,
-            };
+            if (visit.room_id !== null) {
+                const visitUpdate = await this.repo.update({ total_amount: visit.room.price, ...createVisitDto }, { where: { id: visit.id } });
+                return {
+                    message: 'Visit created successfully',
+                    visitUpdate,
+                };
+            }
+            else {
+                return {
+                    message: 'Visit created successfully',
+                    visit,
+                };
+            }
         }
         catch (error) {
             throw new common_1.BadRequestException('Failed to create visit. Please try again later');

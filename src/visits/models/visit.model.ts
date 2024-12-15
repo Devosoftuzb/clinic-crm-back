@@ -24,6 +24,7 @@ interface VisitAttr {
   start_date: string;
   end_date: string;
   is_partner: boolean;
+  is_room_payment: boolean;
 }
 
 @Table({ tableName: 'visits' })
@@ -116,6 +117,13 @@ export class Visit extends Model<Visit, VisitAttr> {
     defaultValue: false,
   })
   is_partner: boolean;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
+  is_room_payment: boolean;
 
   @HasMany(() => VisitDirection)
   visitDirections: VisitDirection[];

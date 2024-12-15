@@ -6,7 +6,12 @@ export declare class VisitsService {
     constructor(repo: typeof Visit);
     create(clinic_id: string, createVisitDto: CreateVisitDto): Promise<{
         message: string;
+        visitUpdate: [affectedCount: number];
+        visit?: undefined;
+    } | {
+        message: string;
         visit: Visit;
+        visitUpdate?: undefined;
     }>;
     findAll(clinic_id: string): Promise<{
         message: string;

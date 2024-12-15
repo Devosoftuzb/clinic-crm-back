@@ -15,6 +15,7 @@ interface VisitAttr {
     start_date: string;
     end_date: string;
     is_partner: boolean;
+    is_room_payment: boolean;
 }
 export declare class Visit extends Model<Visit, VisitAttr> {
     id: number;
@@ -32,6 +33,7 @@ export declare class Visit extends Model<Visit, VisitAttr> {
     start_date: string;
     end_date: string;
     is_partner: boolean;
+    is_room_payment: boolean;
     visitDirections: VisitDirection[];
 }
 export {};

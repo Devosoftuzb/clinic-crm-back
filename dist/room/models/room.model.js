@@ -48,6 +48,20 @@ __decorate([
 ], Room.prototype, "name", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+    }),
+    __metadata("design:type", Number)
+], Room.prototype, "number_seats", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+    }),
+    __metadata("design:type", Number)
+], Room.prototype, "price", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.BOOLEAN,
         allowNull: false,
         defaultValue: true,
