@@ -1,6 +1,7 @@
 import { Model } from 'sequelize-typescript';
 import { Client } from 'src/client/models/client.model';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { Doctor } from 'src/doctor/models/doctor.model';
 import { Room } from 'src/room/models/room.model';
 import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 interface VisitAttr {
@@ -16,6 +17,7 @@ interface VisitAttr {
     end_date: string;
     is_partner: boolean;
     is_room_payment: boolean;
+    doctor_id: string;
 }
 export declare class Visit extends Model<Visit, VisitAttr> {
     id: number;
@@ -34,6 +36,8 @@ export declare class Visit extends Model<Visit, VisitAttr> {
     end_date: string;
     is_partner: boolean;
     is_room_payment: boolean;
+    doctor_id: string;
+    doctor: Doctor;
     visitDirections: VisitDirection[];
 }
 export {};

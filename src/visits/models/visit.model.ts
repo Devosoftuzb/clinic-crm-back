@@ -9,6 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Client } from 'src/client/models/client.model';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { Doctor } from 'src/doctor/models/doctor.model';
 import { Room } from 'src/room/models/room.model';
 import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
@@ -25,6 +26,7 @@ interface VisitAttr {
   end_date: string;
   is_partner: boolean;
   is_room_payment: boolean;
+  doctor_id: string;
 }
 
 @Table({ tableName: 'visits' })
@@ -124,6 +126,16 @@ export class Visit extends Model<Visit, VisitAttr> {
     defaultValue: false,
   })
   is_room_payment: boolean;
+
+  @ForeignKey(() => Doctor)
+  @Column({
+    type: DataType.UUID,
+    allowNull: true,
+  })
+  doctor_id: string;
+
+  @BelongsTo(() => Doctor)
+  doctor: Doctor;
 
   @HasMany(() => VisitDirection)
   visitDirections: VisitDirection[];

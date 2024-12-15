@@ -13,6 +13,7 @@ exports.Visit = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const client_model_1 = require("../../client/models/client.model");
 const clinic_model_1 = require("../../clinic/models/clinic.model");
+const doctor_model_1 = require("../../doctor/models/doctor.model");
 const room_model_1 = require("../../room/models/room.model");
 const visit_direction_model_1 = require("../../visit_directions/models/visit_direction.model");
 let Visit = class Visit extends sequelize_typescript_1.Model {
@@ -130,6 +131,18 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], Visit.prototype, "is_room_payment", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => doctor_model_1.Doctor),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.UUID,
+        allowNull: true,
+    }),
+    __metadata("design:type", String)
+], Visit.prototype, "doctor_id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => doctor_model_1.Doctor),
+    __metadata("design:type", doctor_model_1.Doctor)
+], Visit.prototype, "doctor", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => visit_direction_model_1.VisitDirection),
     __metadata("design:type", Array)
