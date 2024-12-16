@@ -4,9 +4,10 @@ import { VisitsController } from './visits.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Visit } from './models/visit.model';
 import { JwtModule } from '@nestjs/jwt';
+import { Room } from 'src/room/models/room.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Visit]), JwtModule],
+  imports: [SequelizeModule.forFeature([Visit, Room]), JwtModule],
   controllers: [VisitsController],
   providers: [VisitsService],
 })

@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const visit_model_1 = require("./models/visit.model");
 const sequelize_2 = require("sequelize");
+const room_model_1 = require("../room/models/room.model");
 let VisitsService = class VisitsService {
-    constructor(repo) {
+    constructor(repo, repoRoom) {
         this.repo = repo;
+        this.repoRoom = repoRoom;
     }
     async create(clinic_id, createVisitDto) {
         try {
@@ -61,7 +63,10 @@ let VisitsService = class VisitsService {
             }
             const visit = await this.repo.create(createVisitDto);
             if (visit.room_id !== null) {
-                const visitUpdate = await this.repo.update({ total_amount: visit.room.price, ...createVisitDto }, { where: { id: visit.id } });
+                const room = await this.repoRoom.findOne({
+                    where: { id: visit.room_id },
+                });
+                const visitUpdate = await this.repo.update({ total_amount: room.price, ...createVisitDto }, { where: { id: visit.id } });
                 return {
                     message: 'Visit created successfully',
                     visitUpdate,
@@ -75,6 +80,7 @@ let VisitsService = class VisitsService {
             }
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException('Failed to create visit. Please try again later');
         }
     }
@@ -221,6 +227,7 @@ exports.VisitsService = VisitsService;
 exports.VisitsService = VisitsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(visit_model_1.Visit)),
-    __metadata("design:paramtypes", [Object])
+    __param(1, (0, sequelize_1.InjectModel)(room_model_1.Room)),
+    __metadata("design:paramtypes", [Object, Object])
 ], VisitsService);
 //# sourceMappingURL=visits.service.js.map

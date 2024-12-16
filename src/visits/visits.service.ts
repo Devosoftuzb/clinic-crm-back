@@ -8,10 +8,14 @@ import { UpdateVisitDto } from './dto/update-visit.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Visit } from './models/visit.model';
 import { Op, where } from 'sequelize';
+import { Room } from 'src/room/models/room.model';
 
 @Injectable()
 export class VisitsService {
-  constructor(@InjectModel(Visit) private repo: typeof Visit) {}
+  constructor(
+    @InjectModel(Visit) private repo: typeof Visit,
+    @InjectModel(Room) private repoRoom: typeof Room,
+  ) {}
 
   async create(clinic_id: string, createVisitDto: CreateVisitDto) {
     try {
@@ -60,8 +64,11 @@ export class VisitsService {
       const visit = await this.repo.create(createVisitDto);
 
       if (visit.room_id !== null) {
+        const room = await this.repoRoom.findOne({
+          where: { id: visit.room_id },
+        });
         const visitUpdate = await this.repo.update(
-          { total_amount: visit.room.price, ...createVisitDto },
+          { total_amount: room.price, ...createVisitDto },
           { where: { id: visit.id } },
         );
         return {
@@ -75,6 +82,8 @@ export class VisitsService {
         };
       }
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
         'Failed to create visit. Please try again later',
       );

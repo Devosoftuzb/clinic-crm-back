@@ -1,9 +1,11 @@
 import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
 import { Visit } from './models/visit.model';
+import { Room } from 'src/room/models/room.model';
 export declare class VisitsService {
     private repo;
-    constructor(repo: typeof Visit);
+    private repoRoom;
+    constructor(repo: typeof Visit, repoRoom: typeof Room);
     create(clinic_id: string, createVisitDto: CreateVisitDto): Promise<{
         message: string;
         visitUpdate: [affectedCount: number];
