@@ -58,7 +58,19 @@ export class VisitDirectionsService {
         throw new BadRequestException('Visit not found');
       }
 
-      await visit.update({ total_amount: totalPrice });
+      let updatedAmount = visit.amount.map((amountItem) => ({
+        ...amountItem,
+        total_amount: amountItem.total_amount + totalPrice,
+      }));
+
+      for (let i in visit_direction) {
+        updatedAmount = updatedAmount.map((amountItem) => ({
+          ...amountItem,
+          [visit_direction[i].service_id]: visit_direction[i].price,
+        }));
+      }
+
+      await visit.update({ amount: updatedAmount });
 
       return {
         message: 'Visit direction created successfully',
@@ -137,7 +149,7 @@ export class VisitDirectionsService {
     try {
       const visit_direction = await this.findOne(id);
       await visit_direction.visit_direction.update(updateVisitDirectionDto);
-      
+
       if (visit_direction.visit_direction.status == false) {
         const visit = await this.repoVisit.findOne({
           where: {
@@ -149,11 +161,33 @@ export class VisitDirectionsService {
           throw new BadRequestException('Visit not found');
         }
 
-        await visit.update({
-          total_amount:
-            visit.total_amount - visit_direction.visit_direction.price,
-        });
+        let updatedAmount = visit.amount.map(
+          (amountItem: { total_amount: number; [key: string]: number }) => {
+            if (amountItem[visit_direction.visit_direction.service_id]) {
+              const newTotalAmount =
+                amountItem.total_amount -
+                amountItem[visit_direction.visit_direction.service_id];
+
+              console.log(newTotalAmount);
+                
+
+              const {
+                [visit_direction.visit_direction.service_id]: _,
+                ...rest
+              } = amountItem;
+
+              return {
+                total_amount: newTotalAmount,
+                ...rest,
+              };
+            }
+            return amountItem;
+          },
+        );
+
+        await visit.update({ amount: updatedAmount });
       }
+
       return {
         message: 'Visit direction updated successfully',
         visit_direction: visit_direction.visit_direction,

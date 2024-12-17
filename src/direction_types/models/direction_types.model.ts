@@ -14,6 +14,7 @@ import { VisitDirection } from 'src/visit_directions/models/visit_direction.mode
 interface DirectionTypeAttr {
   direction_id: number;
   name: string;
+  status: boolean;
 }
 
 @Table({ tableName: 'direction_type' })
@@ -45,6 +46,13 @@ export class DirectionType extends Model<DirectionType, DirectionTypeAttr> {
   })
   name: string;
 
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: true,
+    defaultValue: true,
+  })
+  status: boolean;
+
   @HasMany(() => DoctorDirection, {
     onDelete: 'CASCADE',
     hooks: true,
@@ -56,5 +64,4 @@ export class DirectionType extends Model<DirectionType, DirectionTypeAttr> {
     hooks: true,
   })
   visit_directions: VisitDirection[];
-
 }

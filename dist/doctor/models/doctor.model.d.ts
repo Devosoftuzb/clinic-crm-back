@@ -13,6 +13,7 @@ interface DoctorAttr {
     hashed_password: string;
     hashed_refresh_token: string;
     role: 'doctor' | 'lab_technician' | 'external_doctor';
+    status: boolean;
 }
 export declare class Doctor extends Model<Doctor, DoctorAttr> {
     id: string;
@@ -27,6 +28,7 @@ export declare class Doctor extends Model<Doctor, DoctorAttr> {
     hashed_password: string;
     hashed_refresh_token: string;
     role: 'doctor' | 'lab_technician' | 'external_doctor';
+    status: boolean;
     doctorDirection: DoctorDirection[];
     visit_directions: VisitDirection[];
 }

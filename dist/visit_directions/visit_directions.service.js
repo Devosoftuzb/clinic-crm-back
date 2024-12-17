@@ -60,7 +60,17 @@ let VisitDirectionsService = class VisitDirectionsService {
             if (!visit) {
                 throw new common_1.BadRequestException('Visit not found');
             }
-            await visit.update({ total_amount: totalPrice });
+            let updatedAmount = visit.amount.map((amountItem) => ({
+                ...amountItem,
+                total_amount: amountItem.total_amount + totalPrice,
+            }));
+            for (let i in visit_direction) {
+                updatedAmount = updatedAmount.map((amountItem) => ({
+                    ...amountItem,
+                    [visit_direction[i].service_id]: visit_direction[i].price,
+                }));
+            }
+            await visit.update({ amount: updatedAmount });
             return {
                 message: 'Visit direction created successfully',
                 visit_direction,
@@ -137,9 +147,20 @@ let VisitDirectionsService = class VisitDirectionsService {
                 if (!visit) {
                     throw new common_1.BadRequestException('Visit not found');
                 }
-                await visit.update({
-                    total_amount: visit.total_amount - visit_direction.visit_direction.price,
+                let updatedAmount = visit.amount.map((amountItem) => {
+                    if (amountItem[visit_direction.visit_direction.service_id]) {
+                        const newTotalAmount = amountItem.total_amount -
+                            amountItem[visit_direction.visit_direction.service_id];
+                        console.log(newTotalAmount);
+                        const { [visit_direction.visit_direction.service_id]: _, ...rest } = amountItem;
+                        return {
+                            total_amount: newTotalAmount,
+                            ...rest,
+                        };
+                    }
+                    return amountItem;
                 });
+                await visit.update({ amount: updatedAmount });
             }
             return {
                 message: 'Visit direction updated successfully',

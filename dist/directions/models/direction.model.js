@@ -49,6 +49,14 @@ __decorate([
     __metadata("design:type", String)
 ], Direction.prototype, "name", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.BOOLEAN,
+        allowNull: true,
+        defaultValue: true,
+    }),
+    __metadata("design:type", Boolean)
+], Direction.prototype, "status", void 0);
+__decorate([
     (0, sequelize_typescript_1.HasMany)(() => direction_types_model_1.DirectionType, {
         onDelete: 'CASCADE',
         hooks: true,

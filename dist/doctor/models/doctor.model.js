@@ -107,6 +107,14 @@ __decorate([
     __metadata("design:type", String)
 ], Doctor.prototype, "role", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.BOOLEAN,
+        allowNull: true,
+        defaultValue: true,
+    }),
+    __metadata("design:type", Boolean)
+], Doctor.prototype, "status", void 0);
+__decorate([
     (0, sequelize_typescript_1.HasMany)(() => doctor_direction_model_1.DoctorDirection, {
         onDelete: 'CASCADE',
         hooks: true,

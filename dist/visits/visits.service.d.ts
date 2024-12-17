@@ -2,18 +2,15 @@ import { CreateVisitDto } from './dto/create-visit.dto';
 import { UpdateVisitDto } from './dto/update-visit.dto';
 import { Visit } from './models/visit.model';
 import { Room } from 'src/room/models/room.model';
+import { Client } from 'src/client/models/client.model';
 export declare class VisitsService {
     private repo;
     private repoRoom;
-    constructor(repo: typeof Visit, repoRoom: typeof Room);
+    private repoClient;
+    constructor(repo: typeof Visit, repoRoom: typeof Room, repoClient: typeof Client);
     create(clinic_id: string, createVisitDto: CreateVisitDto): Promise<{
         message: string;
-        visitUpdate: [affectedCount: number];
-        visit?: undefined;
-    } | {
-        message: string;
         visit: Visit;
-        visitUpdate?: undefined;
     }>;
     findAll(clinic_id: string): Promise<{
         message: string;

@@ -9,14 +9,15 @@ interface VisitAttr {
     client_id: string;
     visit_date: string;
     stay_type: 'outpatient' | 'hospital';
-    total_amount: number;
+    amount: string[];
     total_balance: number;
     discount: number;
     room_id: number;
     start_date: string;
     end_date: string;
     is_partner: boolean;
-    is_room_payment: boolean;
+    is_payment: boolean;
+    room_payment: number;
     doctor_id: string;
 }
 export declare class Visit extends Model<Visit, VisitAttr> {
@@ -27,7 +28,9 @@ export declare class Visit extends Model<Visit, VisitAttr> {
     client: Client;
     visit_date: string;
     stay_type: 'outpatient' | 'hospital';
-    total_amount: number;
+    amount: {
+        total_amount: number;
+    }[];
     total_balance: number;
     discount: number;
     room_id: string;
@@ -35,7 +38,8 @@ export declare class Visit extends Model<Visit, VisitAttr> {
     start_date: string;
     end_date: string;
     is_partner: boolean;
-    is_room_payment: boolean;
+    is_payment: boolean;
+    room_payment: number;
     doctor_id: string;
     doctor: Doctor;
     visitDirections: VisitDirection[];

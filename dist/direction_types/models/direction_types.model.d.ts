@@ -5,12 +5,14 @@ import { VisitDirection } from 'src/visit_directions/models/visit_direction.mode
 interface DirectionTypeAttr {
     direction_id: number;
     name: string;
+    status: boolean;
 }
 export declare class DirectionType extends Model<DirectionType, DirectionTypeAttr> {
     id: number;
     direction_id: number;
     direction: Direction;
     name: string;
+    status: boolean;
     doctorDirection: DoctorDirection[];
     visit_directions: VisitDirection[];
 }

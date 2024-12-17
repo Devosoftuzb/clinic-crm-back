@@ -68,12 +68,12 @@ __decorate([
 ], Visit.prototype, "stay_type", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
+        type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.JSON),
+        allowNull: true,
+        defaultValue: [],
     }),
-    __metadata("design:type", Number)
-], Visit.prototype, "total_amount", void 0);
+    __metadata("design:type", Array)
+], Visit.prototype, "amount", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -130,7 +130,15 @@ __decorate([
         defaultValue: false,
     }),
     __metadata("design:type", Boolean)
-], Visit.prototype, "is_room_payment", void 0);
+], Visit.prototype, "is_payment", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+    }),
+    __metadata("design:type", Number)
+], Visit.prototype, "room_payment", void 0);
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => doctor_model_1.Doctor),
     (0, sequelize_typescript_1.Column)({

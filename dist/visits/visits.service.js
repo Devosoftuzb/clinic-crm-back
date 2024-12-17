@@ -18,10 +18,12 @@ const sequelize_1 = require("@nestjs/sequelize");
 const visit_model_1 = require("./models/visit.model");
 const sequelize_2 = require("sequelize");
 const room_model_1 = require("../room/models/room.model");
+const client_model_1 = require("../client/models/client.model");
 let VisitsService = class VisitsService {
-    constructor(repo, repoRoom) {
+    constructor(repo, repoRoom, repoClient) {
         this.repo = repo;
         this.repoRoom = repoRoom;
+        this.repoClient = repoClient;
     }
     async create(clinic_id, createVisitDto) {
         try {
@@ -62,17 +64,32 @@ let VisitsService = class VisitsService {
                 createVisitDto.discount = discount;
             }
             const visit = await this.repo.create(createVisitDto);
+            visit.amount = [{ total_amount: 0 }];
             if (visit.room_id !== null) {
                 const room = await this.repoRoom.findOne({
                     where: { id: visit.room_id },
                 });
-                const visitUpdate = await this.repo.update({ total_amount: room.price, ...createVisitDto }, { where: { id: visit.id } });
+                const startDate = new Date(visit.start_date);
+                const endDate = new Date(visit.end_date);
+                const timeDifference = endDate.getTime() - startDate.getTime();
+                const daysDifference = timeDifference / (1000 * 3600 * 24);
+                const roomPrice = room.price * daysDifference;
+                const updatedAmount = visit.amount.map((amountItem) => ({
+                    ...amountItem,
+                    room_price: roomPrice,
+                    total_amount: amountItem.total_amount + roomPrice,
+                }));
+                await this.repo.update({ ...createVisitDto, amount: updatedAmount }, { where: { id: visit.id } });
+                const updatedVisit = await this.repo.findOne({
+                    where: { id: visit.id },
+                });
                 return {
                     message: 'Visit created successfully',
-                    visitUpdate,
+                    visit: updatedVisit,
                 };
             }
             else {
+                await visit.update({ amount: visit.amount, ...createVisitDto });
                 return {
                     message: 'Visit created successfully',
                     visit,
@@ -86,7 +103,10 @@ let VisitsService = class VisitsService {
     }
     async findAll(clinic_id) {
         try {
-            const visits = await this.repo.findAll({ where: { clinic_id } });
+            const visits = await this.repo.findAll({
+                where: { clinic_id },
+                order: [['createdAt', 'DESC']],
+            });
             if (!visits || visits.length === 0) {
                 throw new common_1.NotFoundException('No visits found for the specified clinic ID');
             }
@@ -163,11 +183,23 @@ let VisitsService = class VisitsService {
                 },
             });
             const total_pages = Math.ceil(total_count / limit);
+            const formattedVisits = await Promise.all(visits.map(async (visit) => {
+                const client = await this.repoClient.findOne({
+                    where: { id: visit.client_id },
+                });
+                return {
+                    visit_id: visit.id,
+                    client_name: client ? client.full_name : 'Unknown',
+                    visit_date: visit.visit_date,
+                    is_payment: visit.is_payment,
+                    total_amount: visit.amount[0].total_amount,
+                };
+            }));
             return {
                 status: 200,
                 message: 'Visits retrieved successfully',
                 data: {
-                    records: visits,
+                    records: formattedVisits,
                     pagination: {
                         currentPage: page,
                         total_pages,
@@ -177,6 +209,7 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later');
         }
     }
@@ -228,6 +261,7 @@ exports.VisitsService = VisitsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(visit_model_1.Visit)),
     __param(1, (0, sequelize_1.InjectModel)(room_model_1.Room)),
-    __metadata("design:paramtypes", [Object, Object])
+    __param(2, (0, sequelize_1.InjectModel)(client_model_1.Client)),
+    __metadata("design:paramtypes", [Object, Object, Object])
 ], VisitsService);
 //# sourceMappingURL=visits.service.js.map

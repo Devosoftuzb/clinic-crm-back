@@ -18,14 +18,15 @@ interface VisitAttr {
   client_id: string;
   visit_date: string;
   stay_type: 'outpatient' | 'hospital';
-  total_amount: number;
+  amount: string[];
   total_balance: number;
   discount: number;
   room_id: number;
   start_date: string;
   end_date: string;
   is_partner: boolean;
-  is_room_payment: boolean;
+  is_payment: boolean;
+  room_payment: number;
   doctor_id: string;
 }
 
@@ -72,11 +73,11 @@ export class Visit extends Model<Visit, VisitAttr> {
   stay_type: 'outpatient' | 'hospital';
 
   @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
+    type: DataType.ARRAY(DataType.JSON),
+    allowNull: true,
+    defaultValue: [],
   })
-  total_amount: number;
+  amount: { total_amount: number }[];
 
   @Column({
     type: DataType.INTEGER,
@@ -125,7 +126,14 @@ export class Visit extends Model<Visit, VisitAttr> {
     allowNull: false,
     defaultValue: false,
   })
-  is_room_payment: boolean;
+  is_payment: boolean;
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  })
+  room_payment: number;
 
   @ForeignKey(() => Doctor)
   @Column({

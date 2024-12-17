@@ -22,6 +22,7 @@ interface DoctorAttr {
   hashed_password: string;
   hashed_refresh_token: string;
   role: 'doctor' | 'lab_technician' | 'external_doctor';
+  status: boolean;
 }
 
 @Table({ tableName: 'doctor' })
@@ -102,6 +103,13 @@ export class Doctor extends Model<Doctor, DoctorAttr> {
     allowNull: false,
   })
   role: 'doctor' | 'lab_technician' | 'external_doctor';
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: true,
+    defaultValue: true,
+  })
+  status: boolean;
 
   @HasMany(() => DoctorDirection, {
     onDelete: 'CASCADE',

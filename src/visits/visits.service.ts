@@ -9,12 +9,15 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Visit } from './models/visit.model';
 import { Op, where } from 'sequelize';
 import { Room } from 'src/room/models/room.model';
+import { Client } from 'src/client/models/client.model';
+import { log } from 'node:console';
 
 @Injectable()
 export class VisitsService {
   constructor(
     @InjectModel(Visit) private repo: typeof Visit,
     @InjectModel(Room) private repoRoom: typeof Room,
+    @InjectModel(Client) private repoClient: typeof Client,
   ) {}
 
   async create(clinic_id: string, createVisitDto: CreateVisitDto) {
@@ -62,20 +65,42 @@ export class VisitsService {
       }
 
       const visit = await this.repo.create(createVisitDto);
+      visit.amount = [{ total_amount: 0 }];
 
       if (visit.room_id !== null) {
         const room = await this.repoRoom.findOne({
           where: { id: visit.room_id },
         });
-        const visitUpdate = await this.repo.update(
-          { total_amount: room.price, ...createVisitDto },
+
+        const startDate = new Date(visit.start_date);
+        const endDate = new Date(visit.end_date);
+
+        const timeDifference = endDate.getTime() - startDate.getTime();
+        const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+        const roomPrice = room.price * daysDifference;
+
+        const updatedAmount = visit.amount.map((amountItem) => ({
+          ...amountItem,
+          room_price: roomPrice,
+          total_amount: amountItem.total_amount + roomPrice,
+        }));
+
+        await this.repo.update(
+          { ...createVisitDto, amount: updatedAmount },
           { where: { id: visit.id } },
         );
+
+        const updatedVisit = await this.repo.findOne({
+          where: { id: visit.id },
+        });
+
         return {
           message: 'Visit created successfully',
-          visitUpdate,
+          visit: updatedVisit,
         };
       } else {
+        await visit.update({ amount: visit.amount, ...createVisitDto });
         return {
           message: 'Visit created successfully',
           visit,
@@ -92,7 +117,10 @@ export class VisitsService {
 
   async findAll(clinic_id: string) {
     try {
-      const visits = await this.repo.findAll({ where: { clinic_id } });
+      const visits = await this.repo.findAll({
+        where: { clinic_id },
+        order: [['createdAt', 'DESC']],
+      });
       if (!visits || visits.length === 0) {
         throw new NotFoundException(
           'No visits found for the specified clinic ID',
@@ -187,11 +215,28 @@ export class VisitsService {
       });
 
       const total_pages = Math.ceil(total_count / limit);
+
+      const formattedVisits = await Promise.all(
+        visits.map(async (visit) => {
+          const client = await this.repoClient.findOne({
+            where: { id: visit.client_id },
+          });
+
+          return {
+            visit_id: visit.id,
+            client_name: client ? client.full_name : 'Unknown',
+            visit_date: visit.visit_date,
+            is_payment: visit.is_payment,
+            total_amount: visit.amount[0].total_amount,
+          };
+        }),
+      );
+
       return {
         status: 200,
         message: 'Visits retrieved successfully',
         data: {
-          records: visits,
+          records: formattedVisits,
           pagination: {
             currentPage: page,
             total_pages,
@@ -200,6 +245,8 @@ export class VisitsService {
         },
       };
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
         'Failed to retrieve visits. Please try again later',
       );

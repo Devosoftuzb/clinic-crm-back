@@ -14,12 +14,13 @@ const sequelize_1 = require("@nestjs/sequelize");
 const visit_model_1 = require("./models/visit.model");
 const jwt_1 = require("@nestjs/jwt");
 const room_model_1 = require("../room/models/room.model");
+const client_model_1 = require("../client/models/client.model");
 let VisitsModule = class VisitsModule {
 };
 exports.VisitsModule = VisitsModule;
 exports.VisitsModule = VisitsModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([visit_model_1.Visit, room_model_1.Room]), jwt_1.JwtModule],
+        imports: [sequelize_1.SequelizeModule.forFeature([visit_model_1.Visit, room_model_1.Room, client_model_1.Client]), jwt_1.JwtModule],
         controllers: [visits_controller_1.VisitsController],
         providers: [visits_service_1.VisitsService],
     })
