@@ -22,7 +22,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create room. Please try again later',
+        'Failed to create room. Please try again later', error
       );
     }
   }
@@ -41,7 +41,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve rooms. Please try again later',
+        'Failed to retrieve rooms. Please try again later', error
       );
     }
   }
@@ -80,7 +80,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve rooms. Please try again later',
+        'Failed to retrieve rooms. Please try again later', error
       );
     }
   }
@@ -104,7 +104,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve rooms. Please try again later',
+        'Failed to retrieve rooms. Please try again later', error
       );
     }
   }
@@ -123,7 +123,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update room. Please try again later',
+        'Failed to update room. Please try again later', error
       );
     }
   }
@@ -136,7 +136,7 @@ export class RoomService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete room. Please try again later',
+        'Failed to delete room. Please try again later', error
       );
     }
   }

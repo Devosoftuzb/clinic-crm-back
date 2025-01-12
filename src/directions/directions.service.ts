@@ -26,7 +26,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create direction. Please try again later',
+        'Failed to create direction. Please try again later', error
       );
     }
   }
@@ -45,7 +45,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve directions. Please try again later',
+        'Failed to retrieve directions. Please try again later', error
       );
     }
   }
@@ -84,7 +84,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve directions. Please try again later',
+        'Failed to retrieve directions. Please try again later', error
       );
     }
   }
@@ -108,7 +108,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve directions. Please try again later',
+        'Failed to retrieve directions. Please try again later', error
       );
     }
   }
@@ -127,7 +127,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update direction. Please try again later',
+        'Failed to update direction. Please try again later', error
       );
     }
   }
@@ -140,7 +140,7 @@ export class DirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete direction. Please try again later',
+        'Failed to delete direction. Please try again later', error
       );
     }
   }

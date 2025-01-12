@@ -25,7 +25,7 @@ export class DoctorController {
   }
 
   @ApiOperation({ summary: 'View all doctors' })
-  @Roles('owner', 'manager', 'administrator')
+  @Roles('owner', 'manager', 'administrator', 'accountant')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get(':clinic_id')
   findAll(@Param('clinic_id') clinic_id: string) {
@@ -33,7 +33,7 @@ export class DoctorController {
   }
 
   @ApiOperation({ summary: 'View all clinic doctors' })
-  @Roles('owner', 'manager', 'administrator')
+  @Roles('owner', 'manager', 'administrator', 'accountant')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get('clinicDoctors/:clinic_id')
   findClinicDoctors(@Param('clinic_id') clinic_id: string) {
@@ -41,7 +41,7 @@ export class DoctorController {
   }
 
   @ApiOperation({ summary: 'View all external doctors' })
-  @Roles('owner', 'manager', 'administrator')
+  @Roles('owner', 'manager', 'administrator', 'accountant')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get('externalDoctors/:clinic_id')
   findExternalDoctors(@Param('clinic_id') clinic_id: string) {
@@ -49,7 +49,7 @@ export class DoctorController {
   }
 
   @ApiOperation({ summary: 'Paginate doctors' })
-  @Roles('owner', 'manager', 'administrator')
+  @Roles('owner', 'manager', 'administrator', 'accountant')
   @UseGuards(RolesGuard, JwtAuthGuard)
   @Get(':clinic_id/page')
   paginate(@Param('clinic_id') clinic_id: string, @Query('page') page: number) {

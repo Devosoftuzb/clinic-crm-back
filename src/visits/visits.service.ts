@@ -61,7 +61,7 @@ export class VisitsService {
           discount = 10;
         }
 
-        createVisitDto.discount = discount;
+        createVisitDto.discount += discount;
       }
 
       const visit = await this.repo.create(createVisitDto);
@@ -110,7 +110,7 @@ export class VisitsService {
       console.log(error);
 
       throw new BadRequestException(
-        'Failed to create visit. Please try again later',
+        'Failed to create visit. Please try again later', error
       );
     }
   }
@@ -132,7 +132,7 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later',
+        'Failed to retrieve visits. Please try again later', error
       );
     }
   }
@@ -171,7 +171,7 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later',
+        'Failed to retrieve visits. Please try again later', error
       );
     }
   }
@@ -248,7 +248,7 @@ export class VisitsService {
       console.log(error);
 
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later',
+        'Failed to retrieve visits. Please try again later', error
       );
     }
   }
@@ -272,7 +272,7 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later',
+        'Failed to retrieve visits. Please try again later', error
       );
     }
   }
@@ -287,7 +287,7 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update visit. Please try again later',
+        'Failed to update visit. Please try again later', error
       );
     }
   }
@@ -300,7 +300,7 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete visit. Please try again later',
+        'Failed to delete visit. Please try again later', error
       );
     }
   }

@@ -19,7 +19,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create doctor direction. Please try again later',
+        'Failed to create doctor direction. Please try again later', error
       );
     }
   }
@@ -33,7 +33,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctor directions. Please try again later',
+        'Failed to retrieve doctor directions. Please try again later', error
       );
     }
   }
@@ -60,7 +60,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctor directions. Please try again later',
+        'Failed to retrieve doctor directions. Please try again later', error
       );
     }
   }
@@ -81,7 +81,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctor direction. Please try again later',
+        'Failed to retrieve doctor direction. Please try again later', error
       );
     }
   }
@@ -96,7 +96,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update doctor direction. Please try again later',
+        'Failed to update doctor direction. Please try again later', error
       );
     }
   }
@@ -109,7 +109,7 @@ export class DoctorDirectionService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete doctor direction. Please try again later',
+        'Failed to delete doctor direction. Please try again later', error
       );
     }
   }

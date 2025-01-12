@@ -42,7 +42,7 @@ export class UserService {
       }
     } catch (error) {
       throw new BadRequestException(
-        'Failed to initialize Super Admin. Please try again later',
+        'Failed to initialize Super Admin. Please try again later', error
       );
     }
   }
@@ -76,7 +76,7 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create user. Please try again later',
+        'Failed to create user. Please try again later', error
       );
     }
   }
@@ -90,7 +90,7 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve users. Please try again later',
+        'Failed to retrieve users. Please try again later', error
       );
     }
   }
@@ -134,7 +134,7 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve user. Please try again later',
+        'Failed to retrieve user. Please try again later', error
       );
     }
   }
@@ -161,7 +161,7 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update user. Please try again later',
+        'Failed to update user. Please try again later', error
       );
     }
   }
@@ -174,7 +174,7 @@ export class UserService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete user. Please try again later',
+        'Failed to delete user. Please try again later', error
       );
     }
   }

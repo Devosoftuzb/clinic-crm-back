@@ -21,7 +21,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create thead. Please try again later',
+        'Failed to create thead. Please try again later', error
       );
     }
   }
@@ -35,7 +35,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve theads. Please try again later',
+        'Failed to retrieve theads. Please try again later', error
       );
     }
   }
@@ -67,7 +67,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve theads. Please try again later',
+        'Failed to retrieve theads. Please try again later', error
       );
     }
   }
@@ -89,7 +89,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve theads. Please try again later',
+        'Failed to retrieve theads. Please try again later', error
       );
     }
   }
@@ -104,7 +104,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update thead. Please try again later',
+        'Failed to update thead. Please try again later', error
       );
     }
   }
@@ -117,7 +117,7 @@ export class TbodyService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete thead. Please try again later',
+        'Failed to delete thead. Please try again later', error
       );
     }
   }

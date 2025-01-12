@@ -114,7 +114,7 @@ __decorate([
 exports.VisitsController = VisitsController = __decorate([
     (0, swagger_1.ApiTags)('Visit'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, roles_auth_decorator_1.Roles)('manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
+    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('visits'),
     __metadata("design:paramtypes", [visits_service_1.VisitsService])

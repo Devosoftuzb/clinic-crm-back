@@ -64,7 +64,7 @@ __decorate([
 ], DoctorController.prototype, "create", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'View all doctors' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator'),
+    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'accountant'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':clinic_id'),
     __param(0, (0, common_1.Param)('clinic_id')),
@@ -74,7 +74,7 @@ __decorate([
 ], DoctorController.prototype, "findAll", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'View all clinic doctors' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator'),
+    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'accountant'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('clinicDoctors/:clinic_id'),
     __param(0, (0, common_1.Param)('clinic_id')),
@@ -84,7 +84,7 @@ __decorate([
 ], DoctorController.prototype, "findClinicDoctors", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'View all external doctors' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator'),
+    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'accountant'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('externalDoctors/:clinic_id'),
     __param(0, (0, common_1.Param)('clinic_id')),
@@ -94,7 +94,7 @@ __decorate([
 ], DoctorController.prototype, "findExternalDoctors", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Paginate doctors' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator'),
+    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'accountant'),
     (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':clinic_id/page'),
     __param(0, (0, common_1.Param)('clinic_id')),

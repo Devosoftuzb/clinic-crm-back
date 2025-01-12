@@ -61,7 +61,7 @@ let VisitsService = class VisitsService {
                 else if (visits.length >= 2) {
                     discount = 10;
                 }
-                createVisitDto.discount = discount;
+                createVisitDto.discount += discount;
             }
             const visit = await this.repo.create(createVisitDto);
             visit.amount = [{ total_amount: 0 }];

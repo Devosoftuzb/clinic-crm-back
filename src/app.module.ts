@@ -29,6 +29,8 @@ import { TheadModule } from './thead/thead.module';
 import { TbodyModule } from './tbody/tbody.module';
 import { Thead } from './thead/models/thead.model';
 import { Tbody } from './tbody/models/tbody.model';
+import { PaymentMethodModule } from './payment_method/payment_method.module';
+import { PaymentMethod } from './payment_method/models/payment_method.model';
 
 @Module({
   imports: [
@@ -54,6 +56,7 @@ import { Tbody } from './tbody/models/tbody.model';
         Room,
         Thead,
         Tbody,
+        PaymentMethod,
       ],
       autoLoadModels: true,
       logging: false,
@@ -73,6 +76,7 @@ import { Tbody } from './tbody/models/tbody.model';
     RoomModule,
     TheadModule,
     TbodyModule,
+    PaymentMethodModule,
   ],
   controllers: [],
   providers: [],

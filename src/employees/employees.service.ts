@@ -57,6 +57,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to create employee. Please try again later',
+        error,
       );
     }
   }
@@ -78,6 +79,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to retrieve employees. Please try again later',
+        error,
       );
     }
   }
@@ -119,6 +121,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to retrieve employees. Please try again later',
+        error,
       );
     }
   }
@@ -141,6 +144,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to retrieve employee. Please try again later',
+        error,
       );
     }
   }
@@ -172,6 +176,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to update employee. Please try again later',
+        error,
       );
     }
   }
@@ -185,6 +190,7 @@ export class EmployeesService {
     } catch (error) {
       throw new BadRequestException(
         'Failed to delete employee. Please try again later',
+        error,
       );
     }
   }

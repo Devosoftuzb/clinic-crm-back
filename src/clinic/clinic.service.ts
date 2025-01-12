@@ -21,7 +21,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create clinic. Please try again later',
+        'Failed to create clinic. Please try again later', error
       );
     }
   }
@@ -35,7 +35,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clinics. Please try again later',
+        'Failed to retrieve clinics. Please try again later', error
       );
     }
   }
@@ -62,7 +62,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clinics. Please try again later',
+        'Failed to retrieve clinics. Please try again later', error
       );
     }
   }
@@ -79,7 +79,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clinic. Please try again later',
+        'Failed to retrieve clinic. Please try again later', error
       );
     }
   }
@@ -94,7 +94,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update clinic. Please try again later',
+        'Failed to update clinic. Please try again later', error
       );
     }
   }
@@ -108,7 +108,7 @@ export class ClinicService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete clinic. Please try again later',
+        'Failed to delete clinic. Please try again later', error
       );
     }
   }

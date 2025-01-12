@@ -55,7 +55,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create doctor. Please try again later',
+        'Failed to create doctor. Please try again later', error
       );
     }
   }
@@ -76,7 +76,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctors. Please try again later',
+        'Failed to retrieve doctors. Please try again later', error
       );
     }
   }
@@ -104,7 +104,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctors. Please try again later',
+        'Failed to retrieve doctors. Please try again later', error
       );
     }
   }
@@ -125,7 +125,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctors. Please try again later',
+        'Failed to retrieve doctors. Please try again later', error
       );
     }
   }
@@ -166,7 +166,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctors. Please try again later',
+        'Failed to retrieve doctors. Please try again later', error
       );
     }
   }
@@ -188,7 +188,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve doctor. Please try again later',
+        'Failed to retrieve doctor. Please try again later', error
       );
     }
   }
@@ -220,7 +220,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update doctor. Please try again later',
+        'Failed to update doctor. Please try again later', error
       );
     }
   }
@@ -233,7 +233,7 @@ export class DoctorService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete doctor. Please try again later',
+        'Failed to delete doctor. Please try again later', error
       );
     }
   }

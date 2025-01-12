@@ -26,7 +26,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to create client. Please try again later',
+        'Failed to create client. Please try again later', error
       );
     }
   }
@@ -45,7 +45,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clients. Please try again later',
+        'Failed to retrieve clients. Please try again later', error
       );
     }
   }
@@ -84,7 +84,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clients. Please try again later',
+        'Failed to retrieve clients. Please try again later', error
       );
     }
   }
@@ -108,7 +108,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve clients. Please try again later',
+        'Failed to retrieve clients. Please try again later', error
       );
     }
   }
@@ -127,7 +127,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update client. Please try again later',
+        'Failed to update client. Please try again later', error
       );
     }
   }
@@ -141,7 +141,7 @@ export class ClientService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete client. Please try again later',
+        'Failed to delete client. Please try again later', error
       );
     }
   }

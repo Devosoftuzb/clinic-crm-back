@@ -70,7 +70,8 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve employees. Please try again later');
+            console.log(error);
+            throw new common_1.BadRequestException('Failed to retrieve employees. Please try again later', error);
         }
     }
     async paginate(clinic_id, page) {
