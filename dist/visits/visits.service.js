@@ -98,7 +98,7 @@ let VisitsService = class VisitsService {
         }
         catch (error) {
             console.log(error);
-            throw new common_1.BadRequestException('Failed to create visit. Please try again later');
+            throw new common_1.BadRequestException('Failed to create visit. Please try again later', error);
         }
     }
     async findAll(clinic_id) {
@@ -116,7 +116,7 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later', error);
         }
     }
     async paginate(clinic_id, page) {
@@ -148,17 +148,17 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later', error);
         }
     }
-    async paginateOneDayVisit(clinic_id, page) {
+    async filter(clinic_id, start_date, end_date, page) {
         try {
             page = Number(page);
             const limit = 15;
             const offset = (page - 1) * limit;
-            const startOfDay = new Date();
+            const startOfDay = new Date(start_date);
             startOfDay.setHours(0, 0, 0, 0);
-            const endOfDay = new Date();
+            const endOfDay = new Date(end_date);
             endOfDay.setHours(23, 59, 59, 999);
             const visits = await this.repo.findAll({
                 where: {
@@ -172,7 +172,7 @@ let VisitsService = class VisitsService {
                 order: [['createdAt', 'DESC']],
             });
             if (!visits || visits.length === 0) {
-                throw new common_1.NotFoundException('No visits found for the specified clinic ID');
+                throw new common_1.NotFoundException('No visits found for the specified clinic ID in the given date range');
             }
             const total_count = await this.repo.count({
                 where: {
@@ -192,7 +192,7 @@ let VisitsService = class VisitsService {
                     client_name: client ? client.full_name : 'Unknown',
                     visit_date: visit.visit_date,
                     is_payment: visit.is_payment,
-                    total_amount: visit.amount[0].total_amount,
+                    total_amount: visit.amount[0]?.total_amount || 0,
                 };
             }));
             return {
@@ -228,7 +228,7 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve visits. Please try again later', error);
         }
     }
     async update(clinic_id, id, updateVisitDto) {
@@ -241,7 +241,7 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update visit. Please try again later');
+            throw new common_1.BadRequestException('Failed to update visit. Please try again later', error);
         }
     }
     async remove(clinic_id, id) {
@@ -252,7 +252,7 @@ let VisitsService = class VisitsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete visit. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete visit. Please try again later', error);
         }
     }
 };

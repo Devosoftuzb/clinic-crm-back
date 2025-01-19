@@ -53,7 +53,7 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create employee. Please try again later');
+            throw new common_1.BadRequestException('Failed to create employee. Please try again later', error);
         }
     }
     async findAll(clinic_id) {
@@ -70,7 +70,6 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            console.log(error);
             throw new common_1.BadRequestException('Failed to retrieve employees. Please try again later', error);
         }
     }
@@ -105,7 +104,7 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve employees. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve employees. Please try again later', error);
         }
     }
     async findOne(clinic_id, id) {
@@ -123,7 +122,7 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve employee. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve employee. Please try again later', error);
         }
     }
     async update(clinic_id, id, updateEmployeeDto) {
@@ -142,7 +141,7 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update employee. Please try again later');
+            throw new common_1.BadRequestException('Failed to update employee. Please try again later', error);
         }
     }
     async remove(clinic_id, id) {
@@ -153,7 +152,7 @@ let EmployeesService = class EmployeesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete employee. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete employee. Please try again later', error);
         }
     }
 };

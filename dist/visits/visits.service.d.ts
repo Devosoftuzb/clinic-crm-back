@@ -17,7 +17,7 @@ export declare class VisitsService {
         visits: Visit[];
     }>;
     paginate(clinic_id: string, page: number): Promise<object>;
-    paginateOneDayVisit(clinic_id: string, page: number): Promise<object>;
+    filter(clinic_id: string, start_date: string, end_date: string, page: number): Promise<object>;
     findOne(clinic_id: string, id: number): Promise<{
         message: string;
         visit: Visit;

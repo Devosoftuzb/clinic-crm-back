@@ -18,9 +18,6 @@ const visits_service_1 = require("./visits.service");
 const create_visit_dto_1 = require("./dto/create-visit.dto");
 const update_visit_dto_1 = require("./dto/update-visit.dto");
 const swagger_1 = require("@nestjs/swagger");
-const roles_auth_decorator_1 = require("../common/decorators/roles-auth-decorator");
-const roles_guard_1 = require("../common/guards/roles.guard");
-const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 let VisitsController = class VisitsController {
     constructor(visitsService) {
         this.visitsService = visitsService;
@@ -34,8 +31,8 @@ let VisitsController = class VisitsController {
     paginate(clinic_id, page) {
         return this.visitsService.paginate(clinic_id, page);
     }
-    paginateOneDayVisit(clinic_id, page) {
-        return this.visitsService.paginateOneDayVisit(clinic_id, page);
+    filter(clinic_id, start_date, end_date, page) {
+        return this.visitsService.filter(clinic_id, start_date, end_date, page);
     }
     findOne(clinic_id, id) {
         return this.visitsService.findOne(clinic_id, +id);
@@ -76,13 +73,15 @@ __decorate([
 ], VisitsController.prototype, "paginate", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Paginate visits' }),
-    (0, common_1.Get)('oneDayVisit/:clinic_id/page'),
+    (0, common_1.Get)(':clinic_id/:start_date/:end_date/page'),
     __param(0, (0, common_1.Param)('clinic_id')),
-    __param(1, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Param)('start_date')),
+    __param(2, (0, common_1.Param)('end_date')),
+    __param(3, (0, common_1.Query)('page')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:paramtypes", [String, String, String, Number]),
     __metadata("design:returntype", void 0)
-], VisitsController.prototype, "paginateOneDayVisit", null);
+], VisitsController.prototype, "filter", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'View a visit by ID' }),
     (0, common_1.Get)(':clinic_id/:id'),
@@ -113,9 +112,6 @@ __decorate([
 ], VisitsController.prototype, "remove", null);
 exports.VisitsController = VisitsController = __decorate([
     (0, swagger_1.ApiTags)('Visit'),
-    (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('visits'),
     __metadata("design:paramtypes", [visits_service_1.VisitsService])
 ], VisitsController);

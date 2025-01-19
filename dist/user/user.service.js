@@ -47,7 +47,7 @@ let UserService = class UserService {
             }
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to initialize Super Admin. Please try again later');
+            throw new common_1.BadRequestException('Failed to initialize Super Admin. Please try again later', error);
         }
     }
     async checkExistingUser(login) {
@@ -75,7 +75,7 @@ let UserService = class UserService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create user. Please try again later');
+            throw new common_1.BadRequestException('Failed to create user. Please try again later', error);
         }
     }
     async findAll() {
@@ -87,7 +87,7 @@ let UserService = class UserService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve users. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve users. Please try again later', error);
         }
     }
     async paginate(page) {
@@ -127,7 +127,7 @@ let UserService = class UserService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve user. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve user. Please try again later', error);
         }
     }
     async update(id, updateUserDto) {
@@ -146,7 +146,7 @@ let UserService = class UserService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update user. Please try again later');
+            throw new common_1.BadRequestException('Failed to update user. Please try again later', error);
         }
     }
     async remove(id) {
@@ -157,7 +157,7 @@ let UserService = class UserService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete user. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete user. Please try again later', error);
         }
     }
 };

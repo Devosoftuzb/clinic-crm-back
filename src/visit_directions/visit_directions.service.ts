@@ -77,8 +77,11 @@ export class VisitDirectionsService {
         visit_direction,
       };
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
-        'Failed to create visit direction. Please try again later', error
+        'Failed to create visit direction. Please try again later',
+        error,
       );
     }
   }
@@ -92,7 +95,8 @@ export class VisitDirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visit directions. Please try again later', error
+        'Failed to retrieve visit directions. Please try again later',
+        error,
       );
     }
   }
@@ -119,7 +123,8 @@ export class VisitDirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve direction types. Please try again later', error
+        'Failed to retrieve direction types. Please try again later',
+        error,
       );
     }
   }
@@ -140,61 +145,65 @@ export class VisitDirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visit direction. Please try again later', error
+        'Failed to retrieve visit direction. Please try again later',
+        error,
       );
     }
   }
 
   async update(id: number, updateVisitDirectionDto: UpdateVisitDirectionDto) {
     try {
-      const visit_direction = await this.findOne(id);
-      await visit_direction.visit_direction.update(updateVisitDirectionDto);
+      const visitDirection = await this.findOne(id);
 
-      if (visit_direction.visit_direction.status == false) {
+      await visitDirection.visit_direction.update(updateVisitDirectionDto);
+
+      if (!visitDirection.visit_direction.status) {
         const visit = await this.repoVisit.findOne({
-          where: {
-            id: updateVisitDirectionDto.visit_id,
-          },
+          where: { id: updateVisitDirectionDto.visit_id },
         });
 
         if (!visit) {
           throw new BadRequestException('Visit not found');
         }
 
-        let updatedAmount = visit.amount.map(
-          (amountItem: { total_amount: number; [key: string]: number }) => {
-            if (amountItem[visit_direction.visit_direction.service_id]) {
-              const newTotalAmount =
-                amountItem.total_amount -
-                amountItem[visit_direction.visit_direction.service_id];
+        interface AmountItem {
+          total_amount: number;
+          [key: string]: number;
+        }
 
-              console.log(newTotalAmount);
-                
+        let amount = 0;
 
-              const {
-                [visit_direction.visit_direction.service_id]: _,
-                ...rest
-              } = amountItem;
+        const updatedAmount = visit.amount.map((amountItem: AmountItem) => {
+          const serviceId = visitDirection.visit_direction.service_id;
 
-              return {
-                total_amount: newTotalAmount,
-                ...rest,
-              };
-            }
-            return amountItem;
-          },
-        );
+          if (serviceId in amountItem) {
+            const serviceAmount = amountItem[serviceId];
+            const newTotalAmount = amountItem.total_amount - serviceAmount;
+            amount = newTotalAmount;
+
+            const { [serviceId]: _, ...rest } = amountItem;
+
+            return { total_amount: newTotalAmount, ...rest };
+          }
+
+          return amountItem;
+        });
+
+        updatedAmount[0].total_amount = amount;
 
         await visit.update({ amount: updatedAmount });
       }
 
       return {
         message: 'Visit direction updated successfully',
-        visit_direction: visit_direction.visit_direction,
+        visit_direction: visitDirection.visit_direction,
       };
     } catch (error) {
+      console.log(error);
+
       throw new BadRequestException(
-        'Failed to update visit direction. Please try again later', error
+        'Failed to update visit direction. Please try again later',
+        error,
       );
     }
   }
@@ -207,7 +216,8 @@ export class VisitDirectionsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete visit direction. Please try again later', error
+        'Failed to delete visit direction. Please try again later',
+        error,
       );
     }
   }

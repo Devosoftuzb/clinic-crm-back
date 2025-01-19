@@ -14,6 +14,7 @@ const sequelize_typescript_1 = require("sequelize-typescript");
 const direction_types_model_1 = require("../../direction_types/models/direction_types.model");
 const direction_model_1 = require("../../directions/models/direction.model");
 const doctor_model_1 = require("../../doctor/models/doctor.model");
+const payment_model_1 = require("../../payment/models/payment.model");
 const visit_model_1 = require("../../visits/models/visit.model");
 let VisitDirection = class VisitDirection extends sequelize_typescript_1.Model {
 };
@@ -138,6 +139,10 @@ __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => doctor_model_1.Doctor),
     __metadata("design:type", doctor_model_1.Doctor)
 ], VisitDirection.prototype, "id_doctor", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => payment_model_1.Payment),
+    __metadata("design:type", Array)
+], VisitDirection.prototype, "payment", void 0);
 exports.VisitDirection = VisitDirection = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'visit_direction' })
 ], VisitDirection);

@@ -77,7 +77,8 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create visit direction. Please try again later');
+            console.log(error);
+            throw new common_1.BadRequestException('Failed to create visit direction. Please try again later', error);
         }
     }
     async findAll() {
@@ -89,7 +90,7 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve visit directions. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve visit directions. Please try again later', error);
         }
     }
     async paginate(page) {
@@ -114,7 +115,7 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later', error);
         }
     }
     async findOne(id) {
@@ -131,44 +132,43 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve visit direction. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve visit direction. Please try again later', error);
         }
     }
     async update(id, updateVisitDirectionDto) {
         try {
-            const visit_direction = await this.findOne(id);
-            await visit_direction.visit_direction.update(updateVisitDirectionDto);
-            if (visit_direction.visit_direction.status == false) {
+            const visitDirection = await this.findOne(id);
+            await visitDirection.visit_direction.update(updateVisitDirectionDto);
+            if (!visitDirection.visit_direction.status) {
                 const visit = await this.repoVisit.findOne({
-                    where: {
-                        id: updateVisitDirectionDto.visit_id,
-                    },
+                    where: { id: updateVisitDirectionDto.visit_id },
                 });
                 if (!visit) {
                     throw new common_1.BadRequestException('Visit not found');
                 }
-                let updatedAmount = visit.amount.map((amountItem) => {
-                    if (amountItem[visit_direction.visit_direction.service_id]) {
-                        const newTotalAmount = amountItem.total_amount -
-                            amountItem[visit_direction.visit_direction.service_id];
-                        console.log(newTotalAmount);
-                        const { [visit_direction.visit_direction.service_id]: _, ...rest } = amountItem;
-                        return {
-                            total_amount: newTotalAmount,
-                            ...rest,
-                        };
+                let amount = 0;
+                const updatedAmount = visit.amount.map((amountItem) => {
+                    const serviceId = visitDirection.visit_direction.service_id;
+                    if (serviceId in amountItem) {
+                        const serviceAmount = amountItem[serviceId];
+                        const newTotalAmount = amountItem.total_amount - serviceAmount;
+                        amount = newTotalAmount;
+                        const { [serviceId]: _, ...rest } = amountItem;
+                        return { total_amount: newTotalAmount, ...rest };
                     }
                     return amountItem;
                 });
+                updatedAmount[0].total_amount = amount;
                 await visit.update({ amount: updatedAmount });
             }
             return {
                 message: 'Visit direction updated successfully',
-                visit_direction: visit_direction.visit_direction,
+                visit_direction: visitDirection.visit_direction,
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update visit direction. Please try again later');
+            console.log(error);
+            throw new common_1.BadRequestException('Failed to update visit direction. Please try again later', error);
         }
     }
     async remove(id) {
@@ -179,7 +179,7 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete visit direction. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete visit direction. Please try again later', error);
         }
     }
 };

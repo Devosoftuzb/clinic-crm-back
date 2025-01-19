@@ -16,13 +16,13 @@ export class PaymentMethodService {
     };
   }
 
-  async findAllBySchoolId(clinic_id: number) {
+  async findAll(clinic_id: string) {
     return await this.repo.findAll({
       where: { clinic_id },
     });
   }
 
-  async paginate(clinic_id: number, page: number): Promise<object> {
+  async paginate(clinic_id: string, page: number): Promise<object> {
     try {
       page = Number(page);
       const limit = 15;
@@ -52,7 +52,7 @@ export class PaymentMethodService {
     }
   }
 
-  async findOne(id: number, clinic_id: number) {
+  async findOne(id: number, clinic_id: string) {
     const paymentMethod = await this.repo.findOne({
       where: {
         id,
@@ -70,7 +70,7 @@ export class PaymentMethodService {
 
   async update(
     id: number,
-    clinic_id: number,
+    clinic_id: string,
     updatePaymentMethodDto: UpdatePaymentMethodDto,
   ) {
     const paymentMethod = await this.findOne(id, clinic_id);
@@ -82,7 +82,7 @@ export class PaymentMethodService {
     };
   }
 
-  async remove(id: number, clinic_id: number) {
+  async remove(id: number, clinic_id: string) {
     const paymentMethod = await this.findOne(id, clinic_id);
     await paymentMethod.destroy();
 

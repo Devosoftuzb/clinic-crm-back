@@ -10,6 +10,7 @@ import {
 import { Client } from 'src/client/models/client.model';
 import { Clinic } from 'src/clinic/models/clinic.model';
 import { Doctor } from 'src/doctor/models/doctor.model';
+import { Payment } from 'src/payment/models/payment.model';
 import { Room } from 'src/room/models/room.model';
 import { VisitDirection } from 'src/visit_directions/models/visit_direction.model';
 
@@ -26,7 +27,7 @@ interface VisitAttr {
   end_date: string;
   is_partner: boolean;
   is_payment: boolean;
-  room_payment: number;
+  room_payment: boolean;
   doctor_id: string;
 }
 
@@ -129,11 +130,11 @@ export class Visit extends Model<Visit, VisitAttr> {
   is_payment: boolean;
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.BOOLEAN,
     allowNull: false,
-    defaultValue: 0,
+    defaultValue: false,
   })
-  room_payment: number;
+  room_payment: boolean;
 
   @ForeignKey(() => Doctor)
   @Column({
@@ -147,4 +148,7 @@ export class Visit extends Model<Visit, VisitAttr> {
 
   @HasMany(() => VisitDirection)
   visitDirections: VisitDirection[];
+
+  @HasMany(() => Payment)
+  payment: Payment[];
 }

@@ -29,7 +29,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create direction type. Please try again later');
+            throw new common_1.BadRequestException('Failed to create direction type. Please try again later', error);
         }
     }
     async findAll() {
@@ -41,7 +41,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later', error);
         }
     }
     async paginate(page) {
@@ -66,7 +66,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve direction types. Please try again later', error);
         }
     }
     async findOne(id) {
@@ -83,7 +83,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve direction type. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve direction type. Please try again later', error);
         }
     }
     async update(id, updateDirectionTypeDto) {
@@ -96,7 +96,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update direction type. Please try again later');
+            throw new common_1.BadRequestException('Failed to update direction type. Please try again later', error);
         }
     }
     async remove(id) {
@@ -107,7 +107,7 @@ let DirectionTypesService = class DirectionTypesService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete direction type. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete direction type. Please try again later', error);
         }
     }
 };

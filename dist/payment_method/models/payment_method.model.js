@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentMethod = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const clinic_model_1 = require("../../clinic/models/clinic.model");
+const payment_model_1 = require("../../payment/models/payment.model");
 let PaymentMethod = class PaymentMethod extends sequelize_typescript_1.Model {
 };
 exports.PaymentMethod = PaymentMethod;
@@ -46,6 +47,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], PaymentMethod.prototype, "name", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => payment_model_1.Payment),
+    __metadata("design:type", Array)
+], PaymentMethod.prototype, "payment", void 0);
 exports.PaymentMethod = PaymentMethod = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'payment_method' })
 ], PaymentMethod);

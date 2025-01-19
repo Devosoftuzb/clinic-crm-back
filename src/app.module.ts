@@ -31,6 +31,8 @@ import { Thead } from './thead/models/thead.model';
 import { Tbody } from './tbody/models/tbody.model';
 import { PaymentMethodModule } from './payment_method/payment_method.module';
 import { PaymentMethod } from './payment_method/models/payment_method.model';
+import { PaymentModule } from './payment/payment.module';
+import { Payment } from './payment/models/payment.model';
 
 @Module({
   imports: [
@@ -57,6 +59,7 @@ import { PaymentMethod } from './payment_method/models/payment_method.model';
         Thead,
         Tbody,
         PaymentMethod,
+        Payment
       ],
       autoLoadModels: true,
       logging: false,
@@ -77,6 +80,7 @@ import { PaymentMethod } from './payment_method/models/payment_method.model';
     TheadModule,
     TbodyModule,
     PaymentMethodModule,
+    PaymentModule,
   ],
   controllers: [],
   providers: [],

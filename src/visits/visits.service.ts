@@ -110,7 +110,8 @@ export class VisitsService {
       console.log(error);
 
       throw new BadRequestException(
-        'Failed to create visit. Please try again later', error
+        'Failed to create visit. Please try again later',
+        error,
       );
     }
   }
@@ -132,7 +133,8 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later', error
+        'Failed to retrieve visits. Please try again later',
+        error,
       );
     }
   }
@@ -171,20 +173,27 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later', error
+        'Failed to retrieve visits. Please try again later',
+        error,
       );
     }
   }
 
-  async paginateOneDayVisit(clinic_id: string, page: number): Promise<object> {
+  async filter(
+    clinic_id: string,
+    start_date: string,
+    end_date: string,
+    page: number,
+  ): Promise<object> {
     try {
       page = Number(page);
       const limit = 15;
       const offset = (page - 1) * limit;
 
-      const startOfDay = new Date();
+      const startOfDay = new Date(start_date);
       startOfDay.setHours(0, 0, 0, 0);
-      const endOfDay = new Date();
+
+      const endOfDay = new Date(end_date);
       endOfDay.setHours(23, 59, 59, 999);
 
       const visits = await this.repo.findAll({
@@ -201,7 +210,7 @@ export class VisitsService {
 
       if (!visits || visits.length === 0) {
         throw new NotFoundException(
-          'No visits found for the specified clinic ID',
+          'No visits found for the specified clinic ID in the given date range',
         );
       }
 
@@ -227,7 +236,7 @@ export class VisitsService {
             client_name: client ? client.full_name : 'Unknown',
             visit_date: visit.visit_date,
             is_payment: visit.is_payment,
-            total_amount: visit.amount[0].total_amount,
+            total_amount: visit.amount[0]?.total_amount || 0,
           };
         }),
       );
@@ -248,7 +257,7 @@ export class VisitsService {
       console.log(error);
 
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later', error
+        'Failed to retrieve visits. Please try again later',
       );
     }
   }
@@ -272,7 +281,8 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to retrieve visits. Please try again later', error
+        'Failed to retrieve visits. Please try again later',
+        error,
       );
     }
   }
@@ -287,7 +297,8 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to update visit. Please try again later', error
+        'Failed to update visit. Please try again later',
+        error,
       );
     }
   }
@@ -300,7 +311,8 @@ export class VisitsService {
       };
     } catch (error) {
       throw new BadRequestException(
-        'Failed to delete visit. Please try again later', error
+        'Failed to delete visit. Please try again later',
+        error,
       );
     }
   }

@@ -32,7 +32,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create client. Please try again later');
+            throw new common_1.BadRequestException('Failed to create client. Please try again later', error);
         }
     }
     async findAll(clinic_id) {
@@ -47,7 +47,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later', error);
         }
     }
     async paginate(clinic_id, page) {
@@ -79,7 +79,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later', error);
         }
     }
     async findOne(clinic_id, id) {
@@ -97,7 +97,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clients. Please try again later', error);
         }
     }
     async update(clinic_id, id, updateClientDto) {
@@ -110,7 +110,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update client. Please try again later');
+            throw new common_1.BadRequestException('Failed to update client. Please try again later', error);
         }
     }
     async remove(clinic_id, id) {
@@ -122,7 +122,7 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete client. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete client. Please try again later', error);
         }
     }
 };

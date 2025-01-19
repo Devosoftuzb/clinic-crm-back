@@ -29,7 +29,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create clinic. Please try again later');
+            throw new common_1.BadRequestException('Failed to create clinic. Please try again later', error);
         }
     }
     async findAll() {
@@ -41,7 +41,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clinics. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clinics. Please try again later', error);
         }
     }
     async paginate(page) {
@@ -66,7 +66,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clinics. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clinics. Please try again later', error);
         }
     }
     async findOne(id) {
@@ -81,7 +81,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve clinic. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve clinic. Please try again later', error);
         }
     }
     async update(id, updateClinicDto) {
@@ -94,7 +94,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update clinic. Please try again later');
+            throw new common_1.BadRequestException('Failed to update clinic. Please try again later', error);
         }
     }
     async remove(id) {
@@ -106,7 +106,7 @@ let ClinicService = class ClinicService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete clinic. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete clinic. Please try again later', error);
         }
     }
 };

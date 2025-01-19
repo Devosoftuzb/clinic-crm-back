@@ -2,6 +2,7 @@ import { Model } from 'sequelize-typescript';
 import { DirectionType } from 'src/direction_types/models/direction_types.model';
 import { Direction } from 'src/directions/models/direction.model';
 import { Doctor } from 'src/doctor/models/doctor.model';
+import { Payment } from 'src/payment/models/payment.model';
 import { Visit } from 'src/visits/models/visit.model';
 interface VisitDirectionAttr {
     visit_id: number;
@@ -36,5 +37,6 @@ export declare class VisitDirection extends Model<VisitDirection, VisitDirection
     retsept: string;
     id_doctor_id: string;
     id_doctor: Doctor;
+    payment: Payment[];
 }
 export {};

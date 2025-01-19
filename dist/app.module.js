@@ -40,6 +40,8 @@ const thead_model_1 = require("./thead/models/thead.model");
 const tbody_model_1 = require("./tbody/models/tbody.model");
 const payment_method_module_1 = require("./payment_method/payment_method.module");
 const payment_method_model_1 = require("./payment_method/models/payment_method.model");
+const payment_module_1 = require("./payment/payment.module");
+const payment_model_1 = require("./payment/models/payment.model");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -69,6 +71,7 @@ exports.AppModule = AppModule = __decorate([
                     thead_model_1.Thead,
                     tbody_model_1.Tbody,
                     payment_method_model_1.PaymentMethod,
+                    payment_model_1.Payment
                 ],
                 autoLoadModels: true,
                 logging: false,
@@ -89,6 +92,7 @@ exports.AppModule = AppModule = __decorate([
             thead_module_1.TheadModule,
             tbody_module_1.TbodyModule,
             payment_method_module_1.PaymentMethodModule,
+            payment_module_1.PaymentModule,
         ],
         controllers: [],
         providers: [],

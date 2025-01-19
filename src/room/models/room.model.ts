@@ -3,10 +3,12 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { Payment } from 'src/payment/models/payment.model';
 
 interface RoomAttr {
   clinic_id: string;
@@ -63,4 +65,7 @@ export class Room extends Model<Room, RoomAttr> {
     defaultValue: true,
   })
   status: boolean;
+
+  @HasMany(() => Payment)
+  payment: Payment[];
 }

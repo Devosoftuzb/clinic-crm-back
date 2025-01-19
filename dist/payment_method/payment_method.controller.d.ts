@@ -8,14 +8,14 @@ export declare class PaymentMethodController {
         message: string;
         student: import("./models/payment_method.model").PaymentMethod;
     }>;
-    findAllBySchoolId(school_id: string): Promise<import("./models/payment_method.model").PaymentMethod[]>;
-    paginate(page: number, school_id: string): Promise<object>;
-    findOne(id: string, school_id: string): Promise<import("./models/payment_method.model").PaymentMethod>;
-    update(id: string, school_id: string, updatePaymentMethodDto: UpdatePaymentMethodDto): Promise<{
+    findAll(clinic_id: string): Promise<import("./models/payment_method.model").PaymentMethod[]>;
+    paginate(page: number, clinic_id: string): Promise<object>;
+    findOne(id: string, clinic_id: string): Promise<import("./models/payment_method.model").PaymentMethod>;
+    update(id: string, clinic_id: string, updatePaymentMethodDto: UpdatePaymentMethodDto): Promise<{
         message: string;
         paymentMethod: import("./models/payment_method.model").PaymentMethod;
     }>;
-    remove(id: string, school_id: string): Promise<{
+    remove(id: string, clinic_id: string): Promise<{
         message: string;
     }>;
 }

@@ -27,7 +27,7 @@ let PaymentMethodService = class PaymentMethodService {
             student,
         };
     }
-    async findAllBySchoolId(clinic_id) {
+    async findAll(clinic_id) {
         return await this.repo.findAll({
             where: { clinic_id },
         });

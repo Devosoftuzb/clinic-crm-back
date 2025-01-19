@@ -3,12 +3,14 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { DirectionType } from 'src/direction_types/models/direction_types.model';
 import { Direction } from 'src/directions/models/direction.model';
 import { Doctor } from 'src/doctor/models/doctor.model';
+import { Payment } from 'src/payment/models/payment.model';
 import { Visit } from 'src/visits/models/visit.model';
 
 interface VisitDirectionAttr {
@@ -129,4 +131,7 @@ export class VisitDirection extends Model<VisitDirection, VisitDirectionAttr> {
 
   @BelongsTo(() => Doctor)
   id_doctor: Doctor;
+
+  @HasMany(() => Payment)
+  payment: Payment[];
 }

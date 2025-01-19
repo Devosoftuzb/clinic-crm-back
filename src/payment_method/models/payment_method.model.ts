@@ -8,6 +8,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Clinic } from 'src/clinic/models/clinic.model';
+import { Payment } from 'src/payment/models/payment.model';
 
 interface PaymentMethodAttr {
   clinic_id: string;
@@ -42,4 +43,7 @@ export class PaymentMethod extends Model<PaymentMethod, PaymentMethodAttr> {
     allowNull: false,
   })
   name: string;
+
+  @HasMany(() => Payment)
+  payment: Payment[];
 }

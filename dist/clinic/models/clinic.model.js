@@ -15,6 +15,8 @@ const client_model_1 = require("../../client/models/client.model");
 const direction_model_1 = require("../../directions/models/direction.model");
 const doctor_model_1 = require("../../doctor/models/doctor.model");
 const employee_model_1 = require("../../employees/models/employee.model");
+const payment_model_1 = require("../../payment/models/payment.model");
+const payment_method_model_1 = require("../../payment_method/models/payment_method.model");
 const room_model_1 = require("../../room/models/room.model");
 const user_model_1 = require("../../user/models/user.model");
 const visit_model_1 = require("../../visits/models/visit.model");
@@ -101,6 +103,20 @@ __decorate([
     }),
     __metadata("design:type", Array)
 ], Clinic.prototype, "rooms", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => payment_method_model_1.PaymentMethod, {
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
+    __metadata("design:type", Array)
+], Clinic.prototype, "payment_method", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => payment_model_1.Payment, {
+        onDelete: 'CASCADE',
+        hooks: true,
+    }),
+    __metadata("design:type", Array)
+], Clinic.prototype, "payment", void 0);
 exports.Clinic = Clinic = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'clinic' })
 ], Clinic);

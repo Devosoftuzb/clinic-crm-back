@@ -57,8 +57,6 @@ __decorate([
 ], ClinicController.prototype, "create", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'View all clinics' }),
-    (0, roles_auth_decorator_1.Roles)('superadmin', 'admin'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

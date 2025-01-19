@@ -28,20 +28,20 @@ let PaymentMethodController = class PaymentMethodController {
     create(createPaymentMethodDto) {
         return this.paymentMethodService.create(createPaymentMethodDto);
     }
-    findAllBySchoolId(school_id) {
-        return this.paymentMethodService.findAllBySchoolId(+school_id);
+    findAll(clinic_id) {
+        return this.paymentMethodService.findAll(clinic_id);
     }
-    paginate(page, school_id) {
-        return this.paymentMethodService.paginate(+school_id, page);
+    paginate(page, clinic_id) {
+        return this.paymentMethodService.paginate(clinic_id, page);
     }
-    findOne(id, school_id) {
-        return this.paymentMethodService.findOne(+id, +school_id);
+    findOne(id, clinic_id) {
+        return this.paymentMethodService.findOne(+id, clinic_id);
     }
-    update(id, school_id, updatePaymentMethodDto) {
-        return this.paymentMethodService.update(+id, +school_id, updatePaymentMethodDto);
+    update(id, clinic_id, updatePaymentMethodDto) {
+        return this.paymentMethodService.update(+id, clinic_id, updatePaymentMethodDto);
     }
-    remove(id, school_id) {
-        return this.paymentMethodService.remove(+id, +school_id);
+    remove(id, clinic_id) {
+        return this.paymentMethodService.remove(+id, clinic_id);
     }
 };
 exports.PaymentMethodController = PaymentMethodController;
@@ -55,60 +55,60 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PaymentMethodController.prototype, "create", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Payment method view all by school ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Payment method view all by clinic ID' }),
     (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
-    (0, common_1.Get)(':school_id'),
-    __param(0, (0, common_1.Param)('school_id')),
+    (0, common_1.Get)(':clinic_id'),
+    __param(0, (0, common_1.Param)('clinic_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], PaymentMethodController.prototype, "findAllBySchoolId", null);
+], PaymentMethodController.prototype, "findAll", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Payment method paginate' }),
     (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
-    (0, common_1.Get)(':school_id/page'),
+    (0, common_1.Get)(':clinic_id/page'),
     __param(0, (0, common_1.Query)('page')),
-    __param(1, (0, common_1.Param)('school_id')),
+    __param(1, (0, common_1.Param)('clinic_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String]),
     __metadata("design:returntype", void 0)
 ], PaymentMethodController.prototype, "paginate", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Payment method view by ID by school ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Payment method view by ID by clinic ID' }),
     (0, roles_auth_decorator_1.Roles)('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
-    (0, common_1.Get)(':school_id/:id'),
+    (0, common_1.Get)(':clinic_id/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Param)('school_id')),
+    __param(1, (0, common_1.Param)('clinic_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], PaymentMethodController.prototype, "findOne", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Payment method update by ID by school ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Payment method update by ID by clinic ID' }),
     (0, roles_auth_decorator_1.Roles)('owner', 'manager'),
-    (0, common_1.Put)(':school_id/:id'),
+    (0, common_1.Put)(':clinic_id/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Param)('school_id')),
+    __param(1, (0, common_1.Param)('clinic_id')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, update_payment_method_dto_1.UpdatePaymentMethodDto]),
     __metadata("design:returntype", void 0)
 ], PaymentMethodController.prototype, "update", null);
 __decorate([
-    (0, swagger_1.ApiOperation)({ summary: 'Payment method remove by ID by school ID' }),
+    (0, swagger_1.ApiOperation)({ summary: 'Payment method remove by ID by clinic ID' }),
     (0, roles_auth_decorator_1.Roles)('owner', 'manager'),
-    (0, common_1.Delete)(':school_id/:id'),
+    (0, common_1.Delete)(':clinic_id/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Param)('school_id')),
+    __param(1, (0, common_1.Param)('clinic_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], PaymentMethodController.prototype, "remove", null);
 exports.PaymentMethodController = PaymentMethodController = __decorate([
     (0, swagger_1.ApiTags)('Payment Method'),
-    (0, common_1.Controller)('payment-method'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Controller)('payment-method'),
     __metadata("design:paramtypes", [payment_method_service_1.PaymentMethodService])
 ], PaymentMethodController);
 //# sourceMappingURL=payment_method.controller.js.map

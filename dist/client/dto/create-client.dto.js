@@ -24,7 +24,6 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 'AC1234567', description: 'Client passport' }),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateClientDto.prototype, "passport", void 0);
 __decorate([

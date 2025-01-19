@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Room = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const clinic_model_1 = require("../../clinic/models/clinic.model");
+const payment_model_1 = require("../../payment/models/payment.model");
 let Room = class Room extends sequelize_typescript_1.Model {
 };
 exports.Room = Room;
@@ -68,6 +69,10 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], Room.prototype, "status", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => payment_model_1.Payment),
+    __metadata("design:type", Array)
+], Room.prototype, "payment", void 0);
 exports.Room = Room = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'room' })
 ], Room);

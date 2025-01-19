@@ -8,14 +8,14 @@ export declare class PaymentMethodService {
         message: string;
         student: PaymentMethod;
     }>;
-    findAllBySchoolId(clinic_id: number): Promise<PaymentMethod[]>;
-    paginate(clinic_id: number, page: number): Promise<object>;
-    findOne(id: number, clinic_id: number): Promise<PaymentMethod>;
-    update(id: number, clinic_id: number, updatePaymentMethodDto: UpdatePaymentMethodDto): Promise<{
+    findAll(clinic_id: string): Promise<PaymentMethod[]>;
+    paginate(clinic_id: string, page: number): Promise<object>;
+    findOne(id: number, clinic_id: string): Promise<PaymentMethod>;
+    update(id: number, clinic_id: string, updatePaymentMethodDto: UpdatePaymentMethodDto): Promise<{
         message: string;
         paymentMethod: PaymentMethod;
     }>;
-    remove(id: number, clinic_id: number): Promise<{
+    remove(id: number, clinic_id: string): Promise<{
         message: string;
     }>;
 }

@@ -16,7 +16,6 @@ export class CreateClientDto {
 
   @ApiProperty({ example: 'AC1234567', description: 'Client passport' })
   @IsString()
-  @IsNotEmpty()
   passport: string;
 
   @ApiProperty({ example: 'John Doe', description: 'Client full name' })

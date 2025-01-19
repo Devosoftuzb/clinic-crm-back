@@ -29,7 +29,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create thead. Please try again later');
+            throw new common_1.BadRequestException('Failed to create thead. Please try again later', error);
         }
     }
     async findAll() {
@@ -41,7 +41,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later', error);
         }
     }
     async paginate(page) {
@@ -69,7 +69,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later', error);
         }
     }
     async findOne(id) {
@@ -87,7 +87,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later');
+            throw new common_1.BadRequestException('Failed to retrieve theads. Please try again later', error);
         }
     }
     async update(id, updateTbodyDto) {
@@ -100,7 +100,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to update thead. Please try again later');
+            throw new common_1.BadRequestException('Failed to update thead. Please try again later', error);
         }
     }
     async remove(id) {
@@ -111,7 +111,7 @@ let TbodyService = class TbodyService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to delete thead. Please try again later');
+            throw new common_1.BadRequestException('Failed to delete thead. Please try again later', error);
         }
     }
 };

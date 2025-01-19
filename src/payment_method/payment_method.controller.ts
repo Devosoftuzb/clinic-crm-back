@@ -8,9 +8,9 @@ import { RolesGuard } from 'src/common/guards/roles.guard';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 
 @ApiTags('Payment Method')
-@Controller('payment-method')
-@UseGuards(RolesGuard, JwtAuthGuard)
 @ApiBearerAuth('access-token')
+@UseGuards(RolesGuard, JwtAuthGuard)
+@Controller('payment-method')
 export class PaymentMethodController {
   constructor(private readonly paymentMethodService: PaymentMethodService) {}
 
@@ -21,48 +21,48 @@ export class PaymentMethodController {
     return this.paymentMethodService.create(createPaymentMethodDto);
   }
 
-  @ApiOperation({ summary: 'Payment method view all by school ID' })
+  @ApiOperation({ summary: 'Payment method view all by clinic ID' })
    @Roles('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper')
-  @Get(':school_id')
-  findAllBySchoolId(@Param('school_id') school_id: string) {
-    return this.paymentMethodService.findAllBySchoolId(+school_id);
+  @Get(':clinic_id')
+  findAll(@Param('clinic_id') clinic_id: string) {
+    return this.paymentMethodService.findAll(clinic_id);
   }
 
   @ApiOperation({ summary: 'Payment method paginate' })
    @Roles('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper')
-  @Get(':school_id/page')
+  @Get(':clinic_id/page')
   paginate(
     @Query('page') page: number,
-    @Param('school_id') school_id: string
+    @Param('clinic_id') clinic_id: string
   ) {
-    return this.paymentMethodService.paginate(+school_id, page);
+    return this.paymentMethodService.paginate(clinic_id, page);
   }
 
-  @ApiOperation({ summary: 'Payment method view by ID by school ID' })
+  @ApiOperation({ summary: 'Payment method view by ID by clinic ID' })
    @Roles('owner', 'manager', 'administrator', 'doctor', 'accountant', 'storekeeper')
-  @Get(':school_id/:id')
-  findOne(@Param('id') id: string, @Param('school_id') school_id: string) {
-    return this.paymentMethodService.findOne(+id, +school_id);
+  @Get(':clinic_id/:id')
+  findOne(@Param('id') id: string, @Param('clinic_id') clinic_id: string) {
+    return this.paymentMethodService.findOne(+id, clinic_id);
   }
 
-  @ApiOperation({ summary: 'Payment method update by ID by school ID' })
+  @ApiOperation({ summary: 'Payment method update by ID by clinic ID' })
   @Roles('owner', 'manager')
-  @Put(':school_id/:id')
+  @Put(':clinic_id/:id')
   update(
     @Param('id') id: string,
-    @Param('school_id') school_id: string,
+    @Param('clinic_id') clinic_id: string,
     @Body() updatePaymentMethodDto: UpdatePaymentMethodDto,
   ) {
-    return this.paymentMethodService.update(+id, +school_id, updatePaymentMethodDto);
+    return this.paymentMethodService.update(+id, clinic_id, updatePaymentMethodDto);
   }
 
-  @ApiOperation({ summary: 'Payment method remove by ID by school ID' })
+  @ApiOperation({ summary: 'Payment method remove by ID by clinic ID' })
   @Roles('owner', 'manager')
-  @Delete(':school_id/:id')
+  @Delete(':clinic_id/:id')
   remove(
     @Param('id') id: string, 
-    @Param('school_id') school_id: string
+    @Param('clinic_id') clinic_id: string
   ) {
-    return this.paymentMethodService.remove(+id, +school_id);
+    return this.paymentMethodService.remove(+id, clinic_id);
   }
 }
