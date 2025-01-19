@@ -77,8 +77,6 @@ export class VisitDirectionsService {
         visit_direction,
       };
     } catch (error) {
-      console.log(error);
-
       throw new BadRequestException(
         'Failed to create visit direction. Please try again later',
         error,
@@ -199,8 +197,6 @@ export class VisitDirectionsService {
         visit_direction: visitDirection.visit_direction,
       };
     } catch (error) {
-      console.log(error);
-
       throw new BadRequestException(
         'Failed to update visit direction. Please try again later',
         error,
