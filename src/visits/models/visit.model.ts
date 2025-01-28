@@ -124,6 +124,7 @@ export class Visit extends Model<Visit, VisitAttr> {
 
   @Column({
     type: DataType.ENUM,
+    values: ['yes', 'part', 'no'],
     allowNull: false,
   })
   is_payment: 'yes' | 'part' | 'no';
