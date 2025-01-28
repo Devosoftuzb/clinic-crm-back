@@ -77,7 +77,6 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            console.log(error);
             throw new common_1.BadRequestException('Failed to create visit direction. Please try again later', error);
         }
     }
@@ -167,7 +166,6 @@ let VisitDirectionsService = class VisitDirectionsService {
             };
         }
         catch (error) {
-            console.log(error);
             throw new common_1.BadRequestException('Failed to update visit direction. Please try again later', error);
         }
     }

@@ -53,8 +53,6 @@ let DoctorController = class DoctorController {
 exports.DoctorController = DoctorController;
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Create a new doctor' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(':clinic_id'),
     __param(0, (0, common_1.Param)('clinic_id')),
     __param(1, (0, common_1.Body)()),

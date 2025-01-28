@@ -13,11 +13,9 @@ export class CreatePaymentDto {
   visit_id: number;
 
   @ApiProperty({ example: 1, description: 'Room ID' })
-  @IsInt()
   room_id: number;
 
   @ApiProperty({ example: 1, description: 'Direction ID' })
-  @IsInt()
   direction_id: number;
 
   @ApiProperty({ example: 1, description: 'Payment method ID' })

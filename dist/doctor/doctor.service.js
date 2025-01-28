@@ -54,6 +54,7 @@ let DoctorService = class DoctorService {
             };
         }
         catch (error) {
+            console.log(error);
             throw new common_1.BadRequestException('Failed to create doctor. Please try again later', error);
         }
     }

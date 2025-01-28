@@ -5,7 +5,7 @@ export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
     login(loginDto: LoginDto): Promise<{
-        user: import("../user/models/user.model").User | import("../employees/models/employee.model").Employee | import("../doctor/models/doctor.model").Doctor;
+        user: import("../doctor/models/doctor.model").Doctor | import("../employees/models/employee.model").Employee | import("../user/models/user.model").User;
         tokens: {
             access_token: string;
             refresh_token: string;

@@ -190,9 +190,12 @@ export class VisitsService {
 
       const startOfDay = new Date(start_date);
       startOfDay.setHours(0, 0, 0, 0);
+      startOfDay.setHours(startOfDay.getHours() + 5);
 
       const endOfDay = new Date(end_date);
       endOfDay.setHours(23, 59, 59, 999);
+      endOfDay.setHours(endOfDay.getHours() + 5);
+      
 
       const visits = await this.repo.findAll({
         where: {
@@ -229,10 +232,15 @@ export class VisitsService {
             where: { id: visit.client_id },
           });
 
+          const adjustedVisitDate = new Date(visit.createdAt);
+          adjustedVisitDate.setHours(adjustedVisitDate.getHours() + 5);
+
           return {
             visit_id: visit.id,
+            client_id: client.id,
             client_name: client ? client.full_name : 'Unknown',
-            visit_date: visit.visit_date,
+            visit_date: adjustedVisitDate,
+            stay_type: visit.stay_type,
             is_payment: visit.is_payment,
             total_amount: visit.amount[0]?.total_amount || 0,
           };
@@ -252,8 +260,6 @@ export class VisitsService {
         },
       };
     } catch (error) {
-      console.log(error);
-
       throw new BadRequestException(
         'Failed to retrieve visits. Please try again later',
       );

@@ -19,8 +19,6 @@ const create_payment_method_dto_1 = require("./dto/create-payment_method.dto");
 const update_payment_method_dto_1 = require("./dto/update-payment_method.dto");
 const swagger_1 = require("@nestjs/swagger");
 const roles_auth_decorator_1 = require("../common/decorators/roles-auth-decorator");
-const roles_guard_1 = require("../common/guards/roles.guard");
-const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 let PaymentMethodController = class PaymentMethodController {
     constructor(paymentMethodService) {
         this.paymentMethodService = paymentMethodService;
@@ -47,7 +45,6 @@ let PaymentMethodController = class PaymentMethodController {
 exports.PaymentMethodController = PaymentMethodController;
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Payment method create' }),
-    (0, roles_auth_decorator_1.Roles)('owner', 'manager'),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -106,8 +103,6 @@ __decorate([
 ], PaymentMethodController.prototype, "remove", null);
 exports.PaymentMethodController = PaymentMethodController = __decorate([
     (0, swagger_1.ApiTags)('Payment Method'),
-    (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('payment-method'),
     __metadata("design:paramtypes", [payment_method_service_1.PaymentMethodService])
 ], PaymentMethodController);

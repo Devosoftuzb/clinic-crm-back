@@ -26,7 +26,7 @@ interface VisitAttr {
   start_date: string;
   end_date: string;
   is_partner: boolean;
-  is_payment: boolean;
+  is_payment: 'yes' | 'part' | 'no';
   room_payment: boolean;
   doctor_id: string;
 }
@@ -123,11 +123,10 @@ export class Visit extends Model<Visit, VisitAttr> {
   is_partner: boolean;
 
   @Column({
-    type: DataType.BOOLEAN,
+    type: DataType.ENUM,
     allowNull: false,
-    defaultValue: false,
   })
-  is_payment: boolean;
+  is_payment: 'yes' | 'part' | 'no';
 
   @Column({
     type: DataType.BOOLEAN,

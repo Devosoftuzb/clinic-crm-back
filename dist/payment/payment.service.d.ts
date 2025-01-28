@@ -1,9 +1,15 @@
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
 import { Payment } from './models/payment.model';
+import { Client } from 'src/client/models/client.model';
+import { Visit } from 'src/visits/models/visit.model';
+import { PaymentMethod } from 'src/payment_method/models/payment_method.model';
 export declare class PaymentService {
     private repo;
-    constructor(repo: typeof Payment);
+    private repoClient;
+    private repoVisit;
+    private repoPaymentMethod;
+    constructor(repo: typeof Payment, repoClient: typeof Client, repoVisit: typeof Visit, repoPaymentMethod: typeof PaymentMethod);
     create(createPaymentDto: CreatePaymentDto): Promise<{
         message: string;
         student: Payment;

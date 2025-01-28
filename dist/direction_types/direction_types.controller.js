@@ -18,9 +18,6 @@ const direction_types_service_1 = require("./direction_types.service");
 const create_direction_type_dto_1 = require("./dto/create-direction_type.dto");
 const update_direction_type_dto_1 = require("./dto/update-direction_type.dto");
 const swagger_1 = require("@nestjs/swagger");
-const roles_auth_decorator_1 = require("../common/decorators/roles-auth-decorator");
-const roles_guard_1 = require("../common/guards/roles.guard");
-const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 let DirectionTypesController = class DirectionTypesController {
     constructor(directionTypesService) {
         this.directionTypesService = directionTypesService;
@@ -96,8 +93,6 @@ __decorate([
 exports.DirectionTypesController = DirectionTypesController = __decorate([
     (0, swagger_1.ApiTags)('Direction Type'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, roles_auth_decorator_1.Roles)('manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('direction-type'),
     __metadata("design:paramtypes", [direction_types_service_1.DirectionTypesService])
 ], DirectionTypesController);

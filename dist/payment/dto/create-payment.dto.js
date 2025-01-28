@@ -29,12 +29,10 @@ __decorate([
 ], CreatePaymentDto.prototype, "visit_id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Room ID' }),
-    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreatePaymentDto.prototype, "room_id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Direction ID' }),
-    (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreatePaymentDto.prototype, "direction_id", void 0);
 __decorate([
