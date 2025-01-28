@@ -11,7 +11,7 @@ export declare class AuthService {
     private readonly jwtService;
     constructor(repoUser: typeof User, repoEmployee: typeof Employee, repoDoctor: typeof Doctor, jwtService: JwtService);
     login(loginDto: LoginDto): Promise<{
-        user: Doctor | Employee | User;
+        user: User | Employee | Doctor;
         tokens: {
             access_token: string;
             refresh_token: string;

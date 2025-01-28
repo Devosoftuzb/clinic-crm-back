@@ -18,6 +18,9 @@ const room_service_1 = require("./room.service");
 const create_room_dto_1 = require("./dto/create-room.dto");
 const update_room_dto_1 = require("./dto/update-room.dto");
 const swagger_1 = require("@nestjs/swagger");
+const roles_auth_decorator_1 = require("../common/decorators/roles-auth-decorator");
+const roles_guard_1 = require("../common/guards/roles.guard");
+const jwt_auth_guard_1 = require("../common/guards/jwt-auth.guard");
 let RoomController = class RoomController {
     constructor(roomService) {
         this.roomService = roomService;
@@ -99,6 +102,8 @@ __decorate([
 exports.RoomController = RoomController = __decorate([
     (0, swagger_1.ApiTags)('Room'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, roles_auth_decorator_1.Roles)('manager', 'administrator', 'doctor', 'accountant', 'storekeeper'),
+    (0, common_1.UseGuards)(roles_guard_1.RolesGuard, jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('room'),
     __metadata("design:paramtypes", [room_service_1.RoomService])
 ], RoomController);

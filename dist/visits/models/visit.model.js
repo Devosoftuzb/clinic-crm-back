@@ -126,11 +126,10 @@ __decorate([
 ], Visit.prototype, "is_partner", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.BOOLEAN,
+        type: sequelize_typescript_1.DataType.ENUM,
         allowNull: false,
-        defaultValue: false,
     }),
-    __metadata("design:type", Boolean)
+    __metadata("design:type", String)
 ], Visit.prototype, "is_payment", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
