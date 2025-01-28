@@ -127,6 +127,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ENUM,
+        values: ['yes', 'part', 'no'],
         allowNull: false,
     }),
     __metadata("design:type", String)
