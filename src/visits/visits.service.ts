@@ -107,6 +107,8 @@ export class VisitsService {
         };
       }
     } catch (error) {
+      console.log(error);
+      
       throw new BadRequestException(
         'Failed to create visit. Please try again later',
         error,
