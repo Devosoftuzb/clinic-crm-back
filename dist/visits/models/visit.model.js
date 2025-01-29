@@ -128,7 +128,8 @@ __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.ENUM,
         values: ['yes', 'part', 'no'],
-        allowNull: false,
+        allowNull: true,
+        defaultValue: 'no',
     }),
     __metadata("design:type", String)
 ], Visit.prototype, "is_payment", void 0);
