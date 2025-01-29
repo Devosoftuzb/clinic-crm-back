@@ -32,7 +32,8 @@ let ClientService = class ClientService {
             };
         }
         catch (error) {
-            throw new common_1.BadRequestException('Failed to create client. Please try again later', error);
+            console.log(error);
+            throw new common_1.BadRequestException(error);
         }
     }
     async findAll(clinic_id) {
